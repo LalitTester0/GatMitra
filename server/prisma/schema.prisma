@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Group {
+  id         String     @id @default(uuid())
+  name       String
+  createdAt  DateTime   @default(now())
+  members    Member[]
+  meetings   Meeting[]
+}
+
+enum Role {
+  ADMIN
+  SECRETARY
+  TREASURER
+  MEMBER
+}
+
+model Member {
+  id           String     @id @default(uuid())
+  groupId      String
+  fullName     String
+  mobileNumber String     @unique
+  otpCode      String?    // Stores temporary OTP for login
+  otpExpiresAt DateTime?  // Expiration time for OTP
+  role         Role       @default(MEMBER)
+  joinDate     DateTime   @default(now())
+  
+  group        Group      @relation(fields: [groupId], references: [id])
+  
+  attendances  Attendance[]
+  savings      SavingsLedger[]
+  loans        Loan[]
+  notifications Notification[]
+}
+
+model Meeting {
+  id              String      @id @default(uuid())
+  groupId         String
+  meetingDate     DateTime    @default(now())
+  resolutionNotes String?
+  
+  group           Group       @relation(fields: [groupId], references: [id])
+  attendances     Attendance[]
+}
+
+model Attendance {
+  id         String   @id @default(uuid())
+  meetingId  String
+  memberId   String
+  isPresent  Boolean  @default(false)
+  
+  meeting    Meeting  @relation(fields: [meetingId], references: [id])
+  member     Member   @relation(fields: [memberId], references: [id])
+}
+
+model SavingsLedger {
+  id             String   @id @default(uuid())
+  memberId       String
+  amountSaved    Decimal  @db.Decimal(10, 2)
+  fineAmount     Decimal  @default(0) @db.Decimal(10, 2)
+  collectionDate DateTime @default(now())
+  
+  member         Member   @relation(fields: [memberId], references: [id])
+}
+
+enum LoanStatus {
+  ACTIVE
+  CLOSED
+}
+
+model Loan {
+  id              String      @id @default(uuid())
+  memberId        String
+  principalAmount Decimal     @db.Decimal(15, 2)
+  interestRate    Decimal     @db.Decimal(5, 2)
+  startDate       DateTime    @default(now())
+  status          LoanStatus  @default(ACTIVE)
+  
+  member          Member      @relation(fields: [memberId], references: [id])
+  repayments      LoanRepayment[]
+}
+
+model LoanRepayment {
+  id            String   @id @default(uuid())
+  loanId        String
+  paymentDate   DateTime @default(now())
+  principalPaid Decimal  @db.Decimal(15, 2)
+  interestPaid  Decimal  @db.Decimal(15, 2)
+  
+  loan          Loan     @relation(fields: [loanId], references: [id])
+}
+
+model Notification {
+  id         String   @id @default(uuid())
+  memberId   String
+  message    String
+  isRead     Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  
+  member     Member   @relation(fields: [memberId], references: [id])
+}
+
+model SuperAdmin {
+  id           String   @id @default(uuid())
+  username     String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
