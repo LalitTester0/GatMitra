@@ -1,0 +1,487 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Add Bachat Gat - Gatmitra</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-primary-fixed": "#000767",
+                "background": "#fbf8ff",
+                "on-tertiary": "#ffffff",
+                "on-primary": "#ffffff",
+                "surface": "#fbf8ff",
+                "error": "#ba1a1a",
+                "inverse-on-surface": "#f2eff8",
+                "on-primary-fixed-variant": "#343d96",
+                "surface-variant": "#e4e1ea",
+                "secondary": "#1b6d24",
+                "outline": "#767683",
+                "on-tertiary-container": "#e17c5a",
+                "inverse-surface": "#303036",
+                "on-secondary": "#ffffff",
+                "primary-fixed": "#e0e0ff",
+                "tertiary-fixed-dim": "#ffb59d",
+                "on-secondary-container": "#217128",
+                "on-error-container": "#93000a",
+                "tertiary-container": "#5c1800",
+                "on-tertiary-fixed": "#390c00",
+                "on-tertiary-fixed-variant": "#7b2e12",
+                "surface-container-high": "#eae7ef",
+                "tertiary-fixed": "#ffdbd0",
+                "secondary-fixed": "#a3f69c",
+                "primary-fixed-dim": "#bdc2ff",
+                "surface-bright": "#fbf8ff",
+                "tertiary": "#380b00",
+                "secondary-container": "#a0f399",
+                "on-primary-container": "#8690ee",
+                "secondary-fixed-dim": "#88d982",
+                "on-background": "#1b1b21",
+                "surface-tint": "#4c56af",
+                "surface-dim": "#dbd9e1",
+                "surface-container-low": "#f5f2fb",
+                "primary-container": "#1a237e",
+                "primary": "#000666",
+                "on-surface-variant": "#454652",
+                "on-secondary-fixed": "#002204",
+                "surface-container-lowest": "#ffffff",
+                "outline-variant": "#c6c5d4",
+                "on-error": "#ffffff",
+                "surface-container": "#efecf5",
+                "on-secondary-fixed-variant": "#005312",
+                "inverse-primary": "#bdc2ff",
+                "on-surface": "#1b1b21",
+                "error-container": "#ffdad6",
+                "surface-container-highest": "#e4e1ea"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "md": "24px",
+                "xl": "64px",
+                "lg": "40px",
+                "xs": "4px",
+                "base": "8px",
+                "sm": "12px",
+                "margin-desktop": "48px",
+                "gutter": "24px",
+                "margin-mobile": "16px"
+        },
+        "fontFamily": {
+                "label-sm": [
+                        "Inter"
+                ],
+                "headline-lg-mobile": [
+                        "Inter"
+                ],
+                "title-md": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Inter"
+                ],
+                "display-lg": [
+                        "Inter"
+                ],
+                "body-md": [
+                        "Inter"
+                ],
+                "label-lg": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "title-md": [
+                        "20px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-lg": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.1px",
+                                "fontWeight": "500"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c6c5d4; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #767683; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+<div class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-screen sticky top-0 overflow-y-auto bg-surface-container-low border-r border-outline-variant shadow-sm w-72 z-50">
+<div class="p-6 flex items-center justify-between gap-3">
+<div class="flex items-center gap-3">
+<img alt="Gatmitra Logo" class="w-10 h-10 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4w1rrYR9USiu_8p7nQw5ZRJOuIhgSCrwcUvRaD59mfClMaVgu45WSFm_LcYAg7zsU26bKroMaPiZrvA0u6PfCKUjkW6UvnQ9mAnUkMBQKL8TAqUMr8jDhv_b1p8QS6nMTfZhpY_GL0jj2PdFRu0OklVdEY6mBy-5UckPrwxx0RuPctIU-o-nBBopFXCQh5diAxZscoG_1WsdpQM4yUPAibS8bX7ZMjIVwjOvJFFtJ5F7q-iyEKY6ZZHMWN2PwbaPI0n5rPzyLYx9X">
+<div>
+<h1 class="text-title-md font-title-md font-bold text-primary">Gatmitra</h1>
+<p class="text-label-sm text-on-surface-variant">Enterprise Finance</p>
+</div>
+</div>
+<button class="p-1 hover:bg-surface-container-highest rounded transition-colors text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="keyboard_double_arrow_left">keyboard_double_arrow_left</span>
+</button>
+</div>
+<nav class="flex-1 mt-4 px-2">
+<a class="flex items-center gap-3 px-4 py-3 mx-2 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 bg-primary-container text-on-primary-container font-bold rounded-lg mx-2 px-4 py-3 shadow-sm" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-label-lg text-label-lg">Bachat Gat Management</span>
+</a>
+
+
+<a class="flex items-center gap-3 px-4 py-3 mx-2 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span class="font-label-lg text-label-lg">Audit Logs</span>
+</a>
+<div class="my-4 border-t border-outline-variant mx-4"></div>
+
+</nav>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col min-h-screen relative overflow-hidden">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-gutter h-16 sticky top-0 z-40 bg-surface border-b border-outline-variant shadow-sm">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 hover:bg-surface-container-highest rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<span class="text-title-md font-title-md font-bold text-primary">Gatmitra</span>
+<div class="hidden md:flex h-4 w-px bg-outline-variant mx-2"></div>
+<nav class="hidden md:flex items-center gap-4">
+<span class="text-on-surface-variant text-label-lg font-label-lg">Bachat Gat Management</span>
+<span class="material-symbols-outlined text-outline" data-icon="chevron_right">chevron_right</span>
+<span class="text-primary font-bold text-label-lg font-label-lg">Add New Group</span>
+</nav>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-full text-label-lg focus:outline-none focus:border-primary w-64 transition-all" placeholder="Search groups..." type="text">
+</div>
+<button class="p-2 hover:bg-surface-container-highest rounded-full transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="language">language</span>
+</button>
+<button class="p-2 hover:bg-surface-container-highest rounded-full transition-colors text-on-surface-variant relative mr-2">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border border-surface"></span>
+</button>
+<div class="relative group">
+<button class="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden focus:outline-none block">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO5LlJdz-jxmfi3UFm_bQo_hkiMdAT4QkgYLiI4rn2fhRDNcEPfd3jt6ArTuP6khujdqAdn94NtiKQfPdwTFnL-ZZSn6byBHacVHypF-VXo_Br6L80CscSmmtwE0s9txahFJrI1HL8M2S6BzOWQdYgyrFnMVjRah1xDne5hCSIDO8BIlsm5i8MYhmp0kKy_YqQPv2F1_5f8FIvE8mmNaM0vs9NuPFKzG9X4OZ6geXMzJgmsnWaJS4tdAgx95NJJCQ-e3PQyqFA7Uqz">
+</button>
+<div class="absolute right-0 mt-2 w-48 bg-surface-container-lowest border border-outline-variant rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+<div class="p-4 border-b border-outline-variant">
+<p class="font-bold text-on-surface truncate">Admin User</p>
+<p class="text-label-sm text-on-surface-variant truncate">Super Administrator</p>
+</div>
+<div class="p-2">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-md" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-lg font-label-lg">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-md" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="text-label-lg font-label-lg">Logout</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<div class="p-4 md:p-8 lg:p-12 max-w-6xl mx-auto w-full flex-1">
+<!-- Hero Section / Title -->
+<div class="mb-10">
+<h2 class="text-headline-lg font-headline-lg text-primary mb-2">Create New Bachat Gat</h2>
+<p class="text-body-lg text-on-surface-variant max-w-2xl">Establish a new self-help group and assign an administrator to manage financial contributions, loans, and reports.</p>
+</div>
+<form class="space-y-12 pb-24">
+<!-- Section 1: Bachat Gat Information -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] border border-outline-variant overflow-hidden">
+<div class="p-6 md:p-8 bg-surface-container-low border-b border-outline-variant flex items-center gap-4">
+<div class="w-12 h-12 bg-primary-fixed text-on-primary-fixed rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+</div>
+<div>
+<h3 class="text-title-md font-title-md text-on-surface">Bachat Gat Information</h3>
+<p class="text-label-sm text-on-surface-variant">Core details and geographical location of the group.</p>
+</div>
+</div>
+<div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Group Name -->
+<div class="md:col-span-2 lg:col-span-1">
+<label class="block text-label-lg font-label-lg text-on-surface mb-2" for="group_name">Group Name *</label>
+<input class="w-full px-4 py-3 bg-white border-2 border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all text-body-md" id="group_name" placeholder="e.g. Mahila Pragati Bachat Gat" required="" type="text">
+</div>
+<!-- Registration Number -->
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface mb-2" for="reg_no">Registration Number</label>
+<input class="w-full px-4 py-3 bg-white border-2 border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all text-body-md" id="reg_no" placeholder="REG-2024-XXXX" type="text">
+</div>
+<!-- Establishment Date -->
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface mb-2" for="est_date">Establishment Date *</label>
+<div class="relative">
+<input class="w-full px-4 py-3 bg-white border-2 border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all text-body-md" id="est_date" required="" type="date">
+</div>
+</div>
+<!-- Address -->
+<div class="md:col-span-2 lg:col-span-3">
+<label class="block text-label-lg font-label-lg text-on-surface mb-2" for="address">Full Address *</label>
+<textarea class="w-full px-4 py-3 bg-white border-2 border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all text-body-md" id="address" placeholder="Street, landmark, and building details" required="" rows="2"></textarea>
+</div>
+<!-- Village, Taluka, District -->
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface mb-2" for="village">Village / City *</label>
+<input class="w-full px-4 py-3 bg-white border-2 border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all text-body-md" id="village" placeholder="Village name" required="" type="text">
+</div>
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface mb-2" for="taluka">Taluka *</label>
+<input class="w-full px-4 py-3 bg-white border-2 border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all text-body-md" id="taluka" placeholder="Taluka name" required="" type="text">
+</div>
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface mb-2" for="district">District *</label>
+<select class="w-full px-4 py-3 bg-white border-2 border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all text-body-md" id="district" required="">
+<option value="">Select District</option>
+<option value="pune">Pune</option>
+<option value="mumbai">Mumbai</option>
+<option value="nagpur">Nagpur</option>
+<option value="nashik">Nashik</option>
+</select>
+</div>
+<!-- State, Pincode -->
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface mb-2" for="state">State *</label>
+<input class="w-full px-4 py-3 bg-surface-container border-2 border-outline-variant rounded-lg text-body-md font-bold" id="state" readonly="" type="text" value="Maharashtra">
+</div>
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface mb-2" for="pincode">Pincode *</label>
+<input class="w-full px-4 py-3 bg-white border-2 border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all text-body-md" id="pincode" maxlength="6" placeholder="411001" required="" type="text">
+</div>
+<!-- Monthly Contribution, Language -->
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface mb-2" for="contribution">Monthly Contribution (₹) *</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-outline">₹</span>
+<input class="w-full pl-8 pr-4 py-3 bg-white border-2 border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all text-body-md" id="contribution" placeholder="500" required="" type="number">
+</div>
+<p class="mt-1 text-label-sm text-on-surface-variant italic">Standard per member per month.</p>
+</div>
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface mb-2" for="pref_lang">Preferred Language *</label>
+<select class="w-full px-4 py-3 bg-white border-2 border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all text-body-md" id="pref_lang" required="">
+<option value="marathi">Marathi</option>
+<option value="hindi">Hindi</option>
+<option value="english">English</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Section 2: Admin Information -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] border border-outline-variant overflow-hidden">
+<div class="p-6 md:p-8 bg-surface-container-low border-b border-outline-variant flex items-center gap-4">
+<div class="w-12 h-12 bg-secondary-container text-on-secondary-container rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</div>
+<div>
+<h3 class="text-title-md font-title-md text-on-surface">Admin Information</h3>
+<p class="text-label-sm text-on-surface-variant">Assign a primary leader for this Bachat Gat.</p>
+</div>
+</div>
+<div class="p-6 md:p-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Left Column -->
+<div class="space-y-6">
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface mb-2" for="admin_name">Full Name *</label>
+<input class="w-full px-4 py-3 bg-white border-2 border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all text-body-md" id="admin_name" placeholder="Enter leader's full name" required="" type="text">
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface mb-2" for="mobile">Mobile Number *</label>
+<input class="w-full px-4 py-3 bg-white border-2 border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all text-body-md" id="mobile" placeholder="98XXXXXXXX" required="" type="tel">
+</div>
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface mb-2" for="email">Email Address</label>
+<input class="w-full px-4 py-3 bg-white border-2 border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all text-body-md" id="email" placeholder="name@email.com" type="email">
+</div>
+</div>
+</div>
+<!-- Right Column (Bento Style Sub-Grid) -->
+<div class="bg-surface-container p-6 rounded-xl space-y-6">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary" data-icon="lock_open">lock_open</span>
+<span class="text-label-lg font-bold text-primary">System Credentials</span>
+</div>
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface mb-2" for="username">Username *</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-outline material-symbols-outlined" data-icon="alternate_email" style="font-size: 18px;">alternate_email</span>
+<input class="w-full pl-11 pr-4 py-3 bg-white border-2 border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all text-body-md" id="username" placeholder="admin_name_01" required="" type="text">
+</div>
+<p class="mt-1 text-label-sm text-on-surface-variant">Suggested: Initial_Lastname</p>
+</div>
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface mb-2" for="admin_lang">Admin Interface Language</label>
+<div class="flex gap-4">
+<label class="flex-1 cursor-pointer">
+<input checked="" class="hidden peer" name="admin_lang" type="radio" value="marathi">
+<div class="px-4 py-3 border-2 border-outline-variant rounded-lg text-center peer-checked:border-primary peer-checked:bg-primary peer-checked:text-on-primary transition-all">Marathi</div>
+</label>
+<label class="flex-1 cursor-pointer">
+<input class="hidden peer" name="admin_lang" type="radio" value="english">
+<div class="px-4 py-3 border-2 border-outline-variant rounded-lg text-center peer-checked:border-primary peer-checked:bg-primary peer-checked:text-on-primary transition-all">English</div>
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</form>
+</div>
+<!-- Sticky Footer Actions -->
+<footer class="fixed bottom-0 left-0 md:left-72 right-0 bg-surface border-t border-outline-variant shadow-[0px_-4px_16px_rgba(0,0,0,0.06)] px-gutter py-4 z-40">
+<div class="max-w-6xl mx-auto flex items-center justify-between">
+<div class="hidden sm:flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="info">info</span>
+<span class="text-label-sm">Ensure all fields marked with * are completed.</span>
+</div>
+<div class="flex items-center gap-4 w-full sm:w-auto">
+<button class="flex-1 sm:flex-none px-8 py-3 rounded-lg border-2 border-primary text-primary font-bold hover:bg-surface-container-highest transition-all duration-150" type="button">
+                            Cancel
+                        </button>
+<button class="flex-1 sm:flex-none px-8 py-3 rounded-lg bg-primary text-on-primary font-bold shadow-md hover:opacity-90 active:scale-[0.98] transition-all duration-150 flex items-center justify-center gap-2" type="submit">
+<span class="">Create Bachat Gat</span>
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</footer>
+<!-- Background Decorative Elements -->
+<div class="fixed top-0 right-0 -z-10 w-[500px] h-[500px] bg-primary-container/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2"></div>
+<div class="fixed bottom-0 left-0 -z-10 w-[300px] h-[300px] bg-secondary-container/10 rounded-full blur-[80px] -translate-x-1/2 translate-y-1/2"></div>
+</main>
+</div>
+<script>
+        // Micro-interactions for form focus states and validation
+        const inputs = document.querySelectorAll('input, select, textarea');
+        
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('shadow-md');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('shadow-md');
+                
+                // Simple validation style toggle
+                if (input.hasAttribute('required') && !input.value) {
+                    input.classList.add('border-error');
+                    input.classList.remove('border-outline-variant');
+                } else {
+                    input.classList.remove('border-error');
+                    input.classList.add('border-outline-variant');
+                }
+            });
+        });
+
+        // Sticky footer observer to handle shadow visibility on scroll
+        const main = document.querySelector('main');
+        const footer = document.querySelector('footer');
+        
+        main.addEventListener('scroll', () => {
+            if (main.scrollTop > 0) {
+                footer.classList.add('shadow-lg');
+            } else {
+                footer.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+
+
+
+
+</body></html>

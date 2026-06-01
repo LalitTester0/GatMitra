@@ -1,0 +1,65 @@
+{
+  "common": {
+    "appName": "GatMitra",
+    "welcome": "Welcome",
+    "dashboard": "Dashboard",
+    "bachatGat": "Bachat Gat",
+    "members": "Members",
+    "audits": "Audit Logs",
+    "settings": "Settings",
+    "logout": "Logout",
+    "save": "Save",
+    "cancel": "Cancel",
+    "create": "Create",
+    "edit": "Edit",
+    "delete": "Delete",
+    "actions": "Actions",
+    "loading": "Loading...",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "phone": "Phone Number",
+    "username": "Username",
+    "password": "Password",
+    "search": "Search..."
+  },
+  "auth": {
+    "login": "Login to GatMitra",
+    "enterDetails": "Enter your login credentials or request WhatsApp OTP code.",
+    "requestOtp": "Send WhatsApp OTP",
+    "verifyOtp": "Verify Code & Login",
+    "otpPlaceholder": "Enter 6-digit OTP",
+    "loginSuccess": "Logged in successfully!",
+    "otpSent": "OTP has been sent to your WhatsApp!",
+    "useStandard": "Use standard credentials",
+    "useOtp": "Use WhatsApp OTP login"
+  },
+  "dashboard": {
+    "title": "GatMitra Executive Dashboard",
+    "groupsCount": "Total Bachat Gats",
+    "membersCount": "Active Members",
+    "savingsSum": "Estimated Monthly Savings",
+    "successLogins": "Successful Logins",
+    "failedLogins": "Failed Logins",
+    "recentActivity": "Recent Activity Audits",
+    "welcomeAdmin": "Welcome, Administrator!"
+  },
+  "bachatgat": {
+    "list": "Bachat Gat Register",
+    "create": "Register New Bachat Gat",
+    "edit": "Modify Bachat Gat",
+    "name": "Group Name",
+    "regNo": "Registration Number",
+    "savingsAmount": "Monthly Contribution (INR)",
+    "established": "Established Date",
+    "desc": "Description"
+  },
+  "member": {
+    "list": "Bachat Gat Members Directory",
+    "create": "Enroll New Member",
+    "edit": "Edit Member Record",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "group": "Associated Bachat Gat"
+  }
+}

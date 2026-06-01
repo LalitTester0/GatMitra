@@ -1,0 +1,478 @@
+<!DOCTYPE html><html class="light" lang="en" style="width: 1280px; height: 1354px; overflow: hidden; position: relative;"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title class="">Audit Logs | Gatmitra</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F5F5F5;
+        }
+        /* Custom Scrollbar for high-density tables */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c6c5d4;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-container": "#8690ee",
+                      "surface-bright": "#fbf8ff",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-container": "#e17c5a",
+                      "secondary-fixed": "#a3f69c",
+                      "on-tertiary-fixed-variant": "#7b2e12",
+                      "surface-container": "#efecf5",
+                      "surface-tint": "#4c56af",
+                      "on-secondary-fixed-variant": "#005312",
+                      "on-error": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "outline": "#767683",
+                      "on-background": "#1b1b21",
+                      "primary": "#000666",
+                      "surface-container-low": "#f5f2fb",
+                      "secondary": "#1b6d24",
+                      "outline-variant": "#c6c5d4",
+                      "inverse-on-surface": "#f2eff8",
+                      "on-secondary-fixed": "#002204",
+                      "inverse-primary": "#bdc2ff",
+                      "on-surface": "#1b1b21",
+                      "tertiary": "#380b00",
+                      "tertiary-fixed": "#ffdbd0",
+                      "secondary-fixed-dim": "#88d982",
+                      "primary-container": "#1a237e",
+                      "on-secondary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "background": "#fbf8ff",
+                      "inverse-surface": "#303036",
+                      "surface-variant": "#e4e1ea",
+                      "on-surface-variant": "#454652",
+                      "surface-container-highest": "#e4e1ea",
+                      "surface-container-high": "#eae7ef",
+                      "on-primary-fixed": "#000767",
+                      "on-tertiary-fixed": "#390c00",
+                      "secondary-container": "#a0f399",
+                      "error": "#ba1a1a",
+                      "on-secondary-container": "#217128",
+                      "tertiary-fixed-dim": "#ffb59d",
+                      "surface-dim": "#dbd9e1",
+                      "tertiary-container": "#5c1800",
+                      "surface": "#fbf8ff",
+                      "on-primary-fixed-variant": "#343d96",
+                      "primary-fixed-dim": "#bdc2ff",
+                      "primary-fixed": "#e0e0ff",
+                      "on-error-container": "#93000a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "64px",
+                      "gutter": "24px",
+                      "md": "24px",
+                      "lg": "40px",
+                      "sm": "12px",
+                      "base": "8px",
+                      "margin-desktop": "48px",
+                      "margin-mobile": "16px",
+                      "xs": "4px"
+              },
+              "fontFamily": {
+                      "title-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "label-lg": ["Inter"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-[#F5F5F5] text-on-surface">
+<!-- Side Navigation Bar -->
+<aside class="h-screen w-64 fixed left-0 top-0 hidden md:flex flex-col bg-surface-container-low border-r border-outline-variant shadow-md z-40">
+<div class="p-md flex flex-col items-center border-b border-outline-variant mb-sm">
+<div class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center mb-base overflow-hidden">
+<img alt="Gatmitra App Logo" data-alt="A professional circular logo for Gatmitra featuring a stylized Indian architectural motif in deep navy blue and white. The aesthetic is clean, corporate, and minimalist, conveying trust and financial stability for rural enterprises. The lighting is bright and even, suited for a high-end fintech application dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfFdCzEnt3I5e_taeBA5FEb3--LOoWd57hkvvJfmq-OluSV-sj2WZMcn4aMa-ianBOd9uIaUJ4lesUkyTCk4ZWlI8JKwLkqpEtagc2WmeJP-zZH5KjWZ_uZGjOyhZ8BFnJ4N8v9rJYGeVpKMQE6svAulNeak28QMbBwM6ZlbwgY6680Te10zYE3nCYUG-7004_QxtfOR7oc7ATmSbG2gaOak52FB36Y97kKEqxPQodT4ceXPFI1Qy4M1YrDcOI50AuPSh269mDOVuk" class="">
+</div>
+<h1 class="text-title-md font-title-md text-on-surface">Gatmitra Admin</h1>
+<p class="text-label-sm text-on-surface-variant">Enterprise Finance</p>
+</div>
+<nav class="flex flex-col py-md space-y-base overflow-y-auto flex-grow">
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg mx-2 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg mx-2 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-body-md text-body-md">Bachat Gat Management</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm bg-primary-container text-on-primary-container rounded-lg mx-2 transition-all duration-200 shadow-sm" href="#">
+<span class="material-symbols-outlined" data-icon="history" style="font-variation-settings: &quot;FILL&quot; 1;">history</span>
+<span class="font-body-md text-body-md">Audit Logs</span>
+</a>
+
+</nav>
+<div class="mt-auto border-t border-outline-variant p-sm flex flex-col gap-xs">
+
+
+</div>
+</aside>
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-30 flex items-center justify-between px-md h-xl bg-surface-container-lowest border-b border-outline-variant shadow-sm md:pl-[280px]">
+<div class="flex items-center gap-md flex-1">
+<div class="relative w-full max-w-md hidden md:block">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-xl pr-md py-xs text-body-md focus:ring-2 focus:ring-primary/20" placeholder="Search activities..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined p-xs rounded-full hover:bg-surface-container-low text-on-surface-variant" data-icon="language">language</button>
+<button class="material-symbols-outlined p-xs rounded-full hover:bg-surface-container-low text-on-surface-variant relative" data-icon="notifications">
+                    notifications
+                    <span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</div>
+<div class="h-8 w-px bg-outline-variant mx-xs"></div>
+<div class="flex items-center gap-sm cursor-pointer group">
+<div class="text-right hidden sm:block">
+<p class="text-label-lg font-label-lg leading-none text-on-surface">Admin Profile</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Region Manager</p>
+</div>
+<img alt="Gatmitra User Profile" class="w-10 h-10 rounded-full border border-outline-variant group-hover:border-primary transition-colors" data-alt="A close-up portrait of a professional female administrative officer in business attire, smiling warmly against a soft-focus office background. The lighting is professional studio quality with a bright, clean, light-mode aesthetic. The image is crisp, high-resolution, and projects a feeling of competence and trustworthy leadership." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmSrOhTUMPSwJHHHw5jzImJXFNSz1TqY1ysSwVrW4nH7BNsQLfEAGys3ljs0sbb9ND7XSjlCOLgX-JBy_-Nfrd7iq6YnW0hE1-YiIl-DS6BO7rcaguCwbADTQTVJasT0p7uLycRPWRfbKUf7dnXC1yf-UuIGe3G8ngHi3rxcSYjOE19WqpaKRKC7jYatSEshWavb1DfDJGx1CqOiy8ZP-u_nGgLiM33Dy-XPU9WkFrxFPdB7JJcix5OC8x9uyvoTuop4r8-x-9uSUt">
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-xl md:pl-64 min-h-screen">
+<div class="p-margin-mobile md:p-margin-desktop max-w-7xl mx-auto">
+<!-- Page Header & Key Stats -->
+<div class="flex flex-col gap-md mb-lg">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-primary tracking-tight">Audit Logs</h2>
+<p class="text-body-md text-on-surface-variant">Monitoring activity across the Khed-Shivapur Region Bachat Gats</p>
+</div>
+<div class="flex gap-sm">
+<button class="bg-surface-container-highest text-on-surface font-label-lg px-md py-sm rounded-lg flex items-center gap-xs border border-outline-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+                            Export CSV
+                        </button>
+</div>
+</div>
+<!-- Atmospheric Summary Cards (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md">
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] border border-outline-variant/30">
+<p class="text-label-sm text-on-surface-variant uppercase tracking-widest mb-xs">Total Logs (24h)</p>
+<div class="flex items-baseline gap-sm">
+<h3 class="text-headline-lg font-bold text-primary">1,284</h3>
+<span class="text-secondary text-label-sm font-bold flex items-center">+12%</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] border border-outline-variant/30">
+<p class="text-label-sm text-on-surface-variant uppercase tracking-widest mb-xs">Failed Actions</p>
+<div class="flex items-baseline gap-sm">
+<h3 class="text-headline-lg font-bold text-error">42</h3>
+<span class="text-error text-label-sm font-bold flex items-center">-4%</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] border border-outline-variant/30">
+<p class="text-label-sm text-on-surface-variant uppercase tracking-widest mb-xs">Active Admins</p>
+<div class="flex items-baseline gap-sm">
+<h3 class="text-headline-lg font-bold text-on-surface">18</h3>
+<span class="text-on-surface-variant text-label-sm">Active Now</span>
+</div>
+</div>
+<div class="bg-primary text-on-primary p-md rounded-xl shadow-[0px_8px_24px_rgba(0,6,102,0.15)]">
+<p class="text-label-sm opacity-80 uppercase tracking-widest mb-xs">Health Status</p>
+<div class="flex items-center gap-sm">
+<h3 class="text-title-md font-bold">Secure</h3>
+<span class="w-3 h-3 bg-secondary-fixed rounded-full animate-pulse"></span>
+</div>
+<p class="text-[10px] mt-xs opacity-70">Last security scan: 4 mins ago</p>
+</div>
+</div>
+</div>
+<!-- Filter Controls -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant mb-md">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-md">
+<div class="flex flex-col gap-xs">
+<label class="text-label-sm font-medium text-on-surface-variant">Action Type</label>
+<select class="w-full bg-surface-container-low border-2 border-outline-variant rounded-lg py-sm px-sm focus:border-primary transition-all text-body-md outline-none">
+<option>All Actions</option>
+<option>Added Member</option>
+<option>Updated KYC</option>
+<option>Approved Loan</option>
+<option>Security Alert</option>
+</select>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="text-label-sm font-medium text-on-surface-variant">Date Range</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]" data-icon="calendar_today">calendar_today</span>
+<input class="w-full bg-surface-container-low border-2 border-outline-variant rounded-lg py-sm pl-xl pr-sm focus:border-primary transition-all text-body-md outline-none" type="text" value="Oct 20, 2023 - Oct 27, 2023">
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="text-label-sm font-medium text-on-surface-variant">Severity</label>
+<div class="flex bg-surface-container-low rounded-lg p-xs border-2 border-outline-variant">
+<button class="flex-1 py-xs rounded text-label-sm font-bold bg-surface-container-lowest shadow-sm">All</button>
+<button class="flex-1 py-xs rounded text-label-sm font-medium text-on-surface-variant hover:bg-surface-container-highest">Low</button>
+<button class="flex-1 py-xs rounded text-label-sm font-medium text-on-surface-variant hover:bg-surface-container-highest">High</button>
+</div>
+</div>
+<div class="flex items-end">
+<button class="w-full bg-surface-container-highest text-on-surface font-label-lg py-sm rounded-lg border border-outline-variant flex items-center justify-center gap-xs hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[20px]" data-icon="filter_list">filter_list</span>
+                            Advanced Filters
+                        </button>
+</div>
+</div>
+</div>
+<!-- High-Density Data Table Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] border border-outline-variant overflow-hidden">
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-md py-sm text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Timestamp</th>
+<th class="px-md py-sm text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">User</th>
+<th class="px-md py-sm text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Action Performed</th>
+<th class="px-md py-sm text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">IP Address</th>
+<th class="px-md py-sm text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="px-md py-sm text-label-sm font-bold text-on-surface-variant uppercase tracking-wider text-right">Details</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-default">
+<td class="px-md py-md">
+<div class="flex flex-col">
+<span class="text-body-md font-medium text-on-surface">Oct 27, 2023</span>
+<span class="text-label-sm text-on-surface-variant">14:22:18</span>
+</div>
+</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center text-[10px] font-bold">SM</div>
+<div>
+<p class="text-body-md font-medium text-on-surface">Sunita More</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Gat Head</p>
+</div>
+</div>
+</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="person_add">person_add</span>
+<span class="text-body-md">Added Member: Laxmi Patil</span>
+</div>
+</td>
+<td class="px-md py-md font-mono text-label-sm text-on-surface-variant">192.168.1.104</td>
+<td class="px-md py-md">
+<span class="px-sm py-xs bg-secondary-container text-on-secondary-container rounded-full text-label-sm font-bold flex items-center gap-xs w-fit">
+<span class="w-1.5 h-1.5 bg-secondary rounded-full"></span>
+                                        Success
+                                    </span>
+</td>
+<td class="px-md py-md text-right">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors" data-icon="visibility">visibility</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors cursor-default">
+<td class="px-md py-md">
+<div class="flex flex-col">
+<span class="text-body-md font-medium text-on-surface">Oct 27, 2023</span>
+<span class="text-label-sm text-on-surface-variant">13:45:02</span>
+</div>
+</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center text-[10px] font-bold">RK</div>
+<div>
+<p class="text-body-md font-medium text-on-surface">Rahul Kulkarni</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Field Agent</p>
+</div>
+</div>
+</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="edit_note">edit_note</span>
+<span class="text-body-md">Updated KYC Documents</span>
+</div>
+</td>
+<td class="px-md py-md font-mono text-label-sm text-on-surface-variant">45.12.98.221</td>
+<td class="px-md py-md">
+<span class="px-sm py-xs bg-error-container text-on-error-container rounded-full text-label-sm font-bold flex items-center gap-xs w-fit">
+<span class="w-1.5 h-1.5 bg-error rounded-full"></span>
+                                        Failed
+                                    </span>
+</td>
+<td class="px-md py-md text-right">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors" data-icon="visibility">visibility</button>
+</td>
+</tr>
+<!-- Row 3 (Loan Action) -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-default">
+<td class="px-md py-md">
+<div class="flex flex-col">
+<span class="text-body-md font-medium text-on-surface">Oct 27, 2023</span>
+<span class="text-label-sm text-on-surface-variant">11:10:55</span>
+</div>
+</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-primary-fixed-dim text-primary flex items-center justify-center text-[10px] font-bold">JD</div>
+<div>
+<p class="text-body-md font-medium text-on-surface">Jayashree Deshpande</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Secretary</p>
+</div>
+</div>
+</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="payments">payments</span>
+<span class="text-body-md">Approved Loan: ₹25,000</span>
+</div>
+</td>
+<td class="px-md py-md font-mono text-label-sm text-on-surface-variant">102.14.0.8</td>
+<td class="px-md py-md">
+<span class="px-sm py-xs bg-secondary-container text-on-secondary-container rounded-full text-label-sm font-bold flex items-center gap-xs w-fit">
+<span class="w-1.5 h-1.5 bg-secondary rounded-full"></span>
+                                        Success
+                                    </span>
+</td>
+<td class="px-md py-md text-right">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors" data-icon="visibility">visibility</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors cursor-default">
+<td class="px-md py-md">
+<div class="flex flex-col">
+<span class="text-body-md font-medium text-on-surface">Oct 26, 2023</span>
+<span class="text-label-sm text-on-surface-variant">18:05:40</span>
+</div>
+</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center text-[10px] font-bold">SM</div>
+<div>
+<p class="text-body-md font-medium text-on-surface">Sunita More</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Gat Head</p>
+</div>
+</div>
+</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]" data-icon="login">login</span>
+<span class="text-body-md">System Login</span>
+</div>
+</td>
+<td class="px-md py-md font-mono text-label-sm text-on-surface-variant">192.168.1.104</td>
+<td class="px-md py-md">
+<span class="px-sm py-xs bg-secondary-container text-on-secondary-container rounded-full text-label-sm font-bold flex items-center gap-xs w-fit">
+<span class="w-1.5 h-1.5 bg-secondary rounded-full"></span>
+                                        Success
+                                    </span>
+</td>
+<td class="px-md py-md text-right">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors" data-icon="visibility">visibility</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="px-md py-sm bg-surface-container-low border-t border-outline-variant flex items-center justify-between">
+<p class="text-label-sm text-on-surface-variant">Showing 1 to 10 of 1,284 entries</p>
+<div class="flex items-center gap-base">
+<button class="p-xs rounded-lg hover:bg-surface-container-highest disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<div class="flex gap-xs">
+<button class="w-8 h-8 rounded-lg bg-primary text-on-primary text-label-sm font-bold">1</button>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container-highest text-on-surface-variant text-label-sm">2</button>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container-highest text-on-surface-variant text-label-sm">3</button>
+<span class="px-xs text-on-surface-variant">...</span>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container-highest text-on-surface-variant text-label-sm">129</button>
+</div>
+<button class="p-xs rounded-lg hover:bg-surface-container-highest">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Contextual Severity Warning -->
+<div class="mt-lg p-md bg-error-container/30 border border-error/20 rounded-xl flex items-start gap-md">
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+<div>
+<h4 class="text-label-lg font-bold text-error">Security Attention Required</h4>
+<p class="text-body-md text-on-error-container">There were 3 failed login attempts from an unrecognized IP in the last 2 hours. Please verify recent group activities and contact system support if this persists.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom Navigation (Visible only on mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-lowest border-t border-outline-variant grid grid-cols-3 h-xl z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-medium">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-[10px] font-medium">Groups</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-bold" href="#">
+<span class="material-symbols-outlined" data-icon="history" style="font-variation-settings: &quot;FILL&quot; 1;">history</span>
+<span class="text-[10px] font-bold">Audit</span>
+</a>
+</nav>
+<script>
+        // Simple Interaction logic
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('click', () => {
+                // Mimic row selection or drill-down
+                console.log('Row clicked');
+            });
+        });
+        
+        // Active Navigation Logic for Side Nav
+        const currentPath = "Audit Logs";
+        document.querySelectorAll('aside nav a').forEach(link => {
+            if (link.textContent.trim().includes(currentPath)) {
+                // Link is already styled as active in HTML template above
+            }
+        });
+    </script>
+
+
+<div id="snapdom-sandbox" data-snapdom-sandbox="true" aria-hidden="true" style="position: absolute; left: -9999px; top: -9999px; width: 0px; height: 0px; overflow: hidden;"></div></body></html>

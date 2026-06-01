@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Manage Member Status</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-low": "#f5f2fb",
+                      "on-tertiary-fixed-variant": "#7b2e12",
+                      "outline-variant": "#c6c5d4",
+                      "outline": "#767683",
+                      "on-background": "#1b1b21",
+                      "primary-container": "#1a237e",
+                      "on-secondary-fixed": "#002204",
+                      "error-container": "#ffdad6",
+                      "surface-container": "#efecf5",
+                      "background": "#fbf8ff",
+                      "secondary": "#1b6d24",
+                      "primary-fixed": "#e0e0ff",
+                      "tertiary": "#380b00",
+                      "secondary-container": "#a0f399",
+                      "primary-fixed-dim": "#bdc2ff",
+                      "secondary-fixed": "#a3f69c",
+                      "surface-container-highest": "#e4e1ea",
+                      "on-error": "#ffffff",
+                      "tertiary-container": "#5c1800",
+                      "on-primary-fixed": "#000767",
+                      "surface-variant": "#e4e1ea",
+                      "inverse-primary": "#bdc2ff",
+                      "inverse-on-surface": "#f2eff8",
+                      "on-primary": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "surface-bright": "#fbf8ff",
+                      "on-surface": "#1b1b21",
+                      "on-error-container": "#93000a",
+                      "surface": "#fbf8ff",
+                      "on-tertiary-fixed": "#390c00",
+                      "tertiary-fixed-dim": "#ffb59d",
+                      "on-surface-variant": "#454652",
+                      "on-tertiary-container": "#e17c5a",
+                      "surface-container-high": "#eae7ef",
+                      "on-secondary-fixed-variant": "#005312",
+                      "surface-tint": "#4c56af",
+                      "inverse-surface": "#303036",
+                      "on-primary-fixed-variant": "#343d96",
+                      "secondary-fixed-dim": "#88d982",
+                      "on-primary-container": "#8690ee",
+                      "surface-dim": "#dbd9e1",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed": "#ffdbd0",
+                      "primary": "#000666",
+                      "on-secondary-container": "#217128",
+                      "error": "#ba1a1a",
+                      "on-tertiary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "48px",
+                      "base": "8px",
+                      "sm": "12px",
+                      "lg": "40px",
+                      "xs": "4px",
+                      "xl": "64px",
+                      "md": "24px"
+              },
+              "fontFamily": {
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "label-lg": [
+                              "Inter"
+                      ],
+                      "title-md": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-lg": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.1px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "title-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for drawer content */
+        .drawer-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .drawer-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .drawer-content::-webkit-scrollbar-thumb {
+            background-color: #e4e1ea; /* surface-variant */
+            border-radius: 4px;
+        }
+      </style>
+</head>
+<body class="bg-surface text-on-surface h-screen w-screen overflow-hidden font-body-md">
+<!-- Backdrop Overlay -->
+<!-- Simulating the underlying page content with a light background -->
+<div class="absolute inset-0 bg-background flex items-center justify-center">
+<p class="font-body-lg text-body-lg text-outline">Main Application Canvas (Behind Overlay)</p>
+</div>
+<!-- Dark Overlay for Modal Focus -->
+<div aria-hidden="true" class="fixed inset-0 bg-inverse-surface bg-opacity-40 z-40 transition-opacity"></div>
+<!-- Side Drawer Container -->
+<div aria-labelledby="drawer-title" aria-modal="true" class="fixed top-0 right-0 h-full w-full md:w-[480px] bg-surface-container-lowest shadow-[0_8px_24px_rgba(0,0,0,0.12)] z-50 flex flex-col transform transition-transform duration-300 ease-in-out translate-x-0" role="dialog">
+<!-- Header -->
+<div class="flex items-center justify-between px-md py-sm border-b border-outline-variant bg-surface-container-lowest">
+<h2 class="font-title-md text-title-md text-on-surface" id="drawer-title">Manage Member Status</h2>
+<button aria-label="Close panel" class="p-2 rounded-full hover:bg-surface-container-highest transition-colors flex items-center justify-center text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary">
+<span aria-hidden="true" class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Scrollable Content Area -->
+<div class="flex-1 overflow-y-auto drawer-content p-md flex flex-col gap-md">
+<!-- Contextual Information -->
+<div class="bg-surface-container-low rounded-lg p-sm flex items-center gap-sm">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-title-md text-title-md font-bold">
+                    RK
+                </div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Updating Status For</p>
+<p class="font-title-md text-title-md text-on-surface">Ravi Kumar</p>
+</div>
+</div>
+<div class="text-on-surface-variant font-body-md text-body-md">
+                Select the appropriate operational status for this member within the Bachat Gat. Changes will affect their ability to participate in loans and savings.
+            </div>
+<!-- Status Selection Cards Container -->
+<fieldset class="flex flex-col gap-sm mt-2">
+<legend class="sr-only">Select Member Status</legend>
+<!-- Active Status Card (Pre-selected Example) -->
+<label class="relative flex items-start p-md cursor-pointer rounded-xl border-2 border-secondary bg-secondary-container bg-opacity-20 hover:bg-opacity-30 transition-colors group">
+<input checked="" class="peer sr-only" name="member_status" type="radio" value="active"/>
+<div class="flex items-start gap-sm w-full">
+<div class="mt-1 flex-shrink-0 text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-label-lg text-on-surface block">Active</span>
+<!-- Custom Radio Indicator (Selected) -->
+<div class="w-5 h-5 rounded-full border-2 border-secondary flex items-center justify-center">
+<div class="w-2.5 h-2.5 rounded-full bg-secondary"></div>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">
+                                Member is fully participating. Can deposit savings, request loans, and vote in meetings.
+                            </p>
+</div>
+</div>
+</label>
+<!-- Inactive Status Card -->
+<label class="relative flex items-start p-md cursor-pointer rounded-xl border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-highest transition-colors group">
+<input class="peer sr-only" name="member_status" type="radio" value="inactive"/>
+<div class="flex items-start gap-sm w-full">
+<div class="mt-1 flex-shrink-0 text-on-surface-variant">
+<span class="material-symbols-outlined">pause_circle</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-label-lg text-on-surface block">Inactive</span>
+<!-- Custom Radio Indicator (Unselected) -->
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant group-hover:border-on-surface-variant transition-colors"></div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">
+                                Temporarily suspended. Savings are held, but cannot issue new loans or vote until reactivated.
+                            </p>
+</div>
+</div>
+</label>
+<!-- Blocked Status Card -->
+<label class="relative flex items-start p-md cursor-pointer rounded-xl border border-outline-variant bg-surface-container-lowest hover:bg-error-container hover:border-error transition-colors group">
+<input class="peer sr-only" name="member_status" type="radio" value="blocked"/>
+<div class="flex items-start gap-sm w-full">
+<div class="mt-1 flex-shrink-0 text-error">
+<span class="material-symbols-outlined">block</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-label-lg text-error block">Blocked</span>
+<!-- Custom Radio Indicator (Unselected) -->
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant group-hover:border-error transition-colors"></div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">
+                                Permanently restricted due to policy violations. Requires committee review for any further action.
+                            </p>
+</div>
+</div>
+</label>
+</fieldset>
+</div>
+<!-- Footer Actions -->
+<div class="p-md border-t border-outline-variant bg-surface-container-lowest flex justify-end gap-sm items-center">
+<button class="h-[48px] px-6 rounded-full border-2 border-primary text-primary font-label-lg text-label-lg hover:bg-primary-container hover:text-on-primary-container transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" type="button">
+                Cancel
+            </button>
+<button class="h-[48px] px-6 rounded-full bg-primary text-on-primary font-label-lg text-label-lg hover:bg-on-primary-fixed-variant transition-colors shadow-sm active:scale-95 duration-150 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 flex items-center gap-2" type="button">
+<span aria-hidden="true" class="material-symbols-outlined text-[20px]">save</span>
+                Save changes
+            </button>
+</div>
+</div>
+<!-- Simple script to handle radio button visual state changes for demonstration -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const radioButtons = document.querySelectorAll('input[name="member_status"]');
+            const labels = document.querySelectorAll('label:has(input[name="member_status"])');
+
+            function updateStyles() {
+                labels.forEach(label => {
+                    const input = label.querySelector('input');
+                    const indicatorOuter = label.querySelector('.rounded-full.border-2');
+                    const icon = label.querySelector('.material-symbols-outlined');
+                    
+                    // Reset classes
+                    label.className = 'relative flex items-start p-md cursor-pointer rounded-xl transition-colors group border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-highest';
+                    indicatorOuter.innerHTML = '';
+                    indicatorOuter.className = 'w-5 h-5 rounded-full border-2 border-outline-variant group-hover:border-on-surface-variant transition-colors';
+                    icon.style.fontVariationSettings = "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+
+                    if (input.checked) {
+                        if (input.value === 'active') {
+                            label.className = 'relative flex items-start p-md cursor-pointer rounded-xl transition-colors group border-2 border-secondary bg-secondary-container bg-opacity-20';
+                            indicatorOuter.className = 'w-5 h-5 rounded-full border-2 border-secondary flex items-center justify-center';
+                            indicatorOuter.innerHTML = '<div class="w-2.5 h-2.5 rounded-full bg-secondary"></div>';
+                            icon.style.fontVariationSettings = "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+                        } else if (input.value === 'inactive') {
+                            label.className = 'relative flex items-start p-md cursor-pointer rounded-xl transition-colors group border-2 border-primary bg-primary-container bg-opacity-10';
+                            indicatorOuter.className = 'w-5 h-5 rounded-full border-2 border-primary flex items-center justify-center';
+                            indicatorOuter.innerHTML = '<div class="w-2.5 h-2.5 rounded-full bg-primary"></div>';
+                            icon.style.fontVariationSettings = "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+                        } else if (input.value === 'blocked') {
+                            label.className = 'relative flex items-start p-md cursor-pointer rounded-xl transition-colors group border-2 border-error bg-error-container bg-opacity-20';
+                            indicatorOuter.className = 'w-5 h-5 rounded-full border-2 border-error flex items-center justify-center';
+                            indicatorOuter.innerHTML = '<div class="w-2.5 h-2.5 rounded-full bg-error"></div>';
+                            icon.style.fontVariationSettings = "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+                        }
+                    } else {
+                        // Keep specific hover colors for blocked when unselected
+                        if (input.value === 'blocked') {
+                             label.classList.add('hover:bg-error-container', 'hover:border-error');
+                             label.classList.remove('hover:bg-surface-container-highest');
+                             indicatorOuter.classList.replace('group-hover:border-on-surface-variant', 'group-hover:border-error');
+                        }
+                    }
+                });
+            }
+
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', updateStyles);
+            });
+            
+            // Initial run to set blocked specific styles
+            updateStyles();
+        });
+    </script>
+</body></html>

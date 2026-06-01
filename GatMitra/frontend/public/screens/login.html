@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Gatmitra - Login / Sign Up</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ba1a1a",
+                        "background": "#fbf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e4e1ea",
+                        "inverse-primary": "#bdc2ff",
+                        "surface-container-high": "#eae7ef",
+                        "on-surface-variant": "#454652",
+                        "on-secondary-container": "#217128",
+                        "on-secondary-fixed": "#002204",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#343d96",
+                        "surface-dim": "#dbd9e1",
+                        "primary-fixed-dim": "#bdc2ff",
+                        "on-primary-container": "#8690ee",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#4c56af",
+                        "surface-container-low": "#f5f2fb",
+                        "on-tertiary-fixed": "#390c00",
+                        "inverse-surface": "#303036",
+                        "primary-fixed": "#e0e0ff",
+                        "inverse-on-surface": "#f2eff8",
+                        "on-tertiary-fixed-variant": "#7b2e12",
+                        "on-primary-fixed": "#000767",
+                        "on-background": "#1b1b21",
+                        "secondary-fixed-dim": "#88d982",
+                        "on-secondary-fixed-variant": "#005312",
+                        "outline-variant": "#c6c5d4",
+                        "primary": "#000666",
+                        "tertiary-container": "#5c1800",
+                        "tertiary": "#380b00",
+                        "surface-variant": "#e4e1ea",
+                        "surface-container": "#efecf5",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "on-surface": "#1b1b21",
+                        "tertiary-fixed": "#ffdbd0",
+                        "surface": "#fbf8ff",
+                        "secondary": "#1b6d24",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#a3f69c",
+                        "secondary-container": "#a0f399",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#1a237e",
+                        "outline": "#767683",
+                        "surface-bright": "#fbf8ff",
+                        "on-tertiary-container": "#e17c5a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "lg": "40px",
+                        "gutter": "24px",
+                        "margin-desktop": "48px",
+                        "margin-mobile": "16px",
+                        "xl": "64px",
+                        "sm": "12px",
+                        "md": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md antialiased">
+<!-- TopAppBar (Transactional - Hidden Nav, Kept for Brand Anchor) -->
+<header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-margin-mobile md:px-margin-desktop h-16 bg-surface dark:bg-background shadow-sm">
+<div class="flex items-center gap-sm"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQb0DvB5zO0bR00VGze-cxroJgflWWJ6PPM2yRsmjtoI9_XsXxlzROYaF5FLkTwOjlh7I75jlyuyqq_QtoftQNhkmn7c-HTcnGF2pyeV29kTy7_FLEQzh9igNKjlyBiB0yTlPyff1DgZsAqNCBd-tTZ-nrro8Zc6nM2jtmtEAWEDruoE3xDi15eQNaifaVRdhtxG68NQDDb6aeQE4yr08AOQ1YDYsksOsQ7bbSza9Npw2mVdRskSpA2gv0kSWPjdLKnlCGtYgUhSso" alt="Gatmitra Logo" class="h-10 w-auto object-contain"></div>
+<!-- Language Toggle -->
+<div class="flex items-center bg-surface-container-low rounded-full p-1 border border-outline-variant">
+<button class="px-3 py-1 rounded-full bg-primary text-on-primary font-label-sm text-label-sm shadow-sm transition-colors">EN</button>
+<button class="px-3 py-1 rounded-full text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm transition-colors">म</button>
+<button class="px-3 py-1 rounded-full text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm transition-colors">हि</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center px-margin-mobile md:px-margin-desktop pt-24 pb-24 relative overflow-hidden">
+<!-- Background Decoration Elements -->
+<div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-primary-fixed opacity-50 rounded-full blur-3xl z-0 pointer-events-none"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-secondary-fixed opacity-30 rounded-full blur-3xl z-0 pointer-events-none"></div>
+<!-- Login Card -->
+<div class="relative z-10 w-full max-w-md bg-surface-container-lowest rounded-xl shadow-[0px_8px_24px_rgba(0,0,0,0.12)] p-gutter flex flex-col gap-gutter border border-outline-variant">
+<!-- Header -->
+<div class="text-center flex flex-col gap-xs">
+<div class="mx-auto w-24 h-24 mb-sm"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQb0DvB5zO0bR00VGze-cxroJgflWWJ6PPM2yRsmjtoI9_XsXxlzROYaF5FLkTwOjlh7I75jlyuyqq_QtoftQNhkmn7c-HTcnGF2pyeV29kTy7_FLEQzh9igNKjlyBiB0yTlPyff1DgZsAqNCBd-tTZ-nrro8Zc6nM2jtmtEAWEDruoE3xDi15eQNaifaVRdhtxG68NQDDb6aeQE4yr08AOQ1YDYsksOsQ7bbSza9Npw2mVdRskSpA2gv0kSWPjdLKnlCGtYgUhSso" alt="Gatmitra Logo" class="w-full h-full object-contain"></div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Welcome to Gatmitra</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Enter your mobile number to securely access your group or join a new one.</p>
+</div>
+<!-- Form -->
+<form class="flex flex-col gap-md" onsubmit="event.preventDefault(); window.location.href='#';">
+<!-- Input Group -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-on-surface" for="mobile-number">Mobile Number</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+<span class="font-body-md text-body-md text-on-surface-variant">+91</span>
+</div>
+<input class="block w-full pl-12 pr-4 py-3 bg-surface text-on-surface border-2 border-outline-variant rounded-lg focus:ring-0 focus:border-primary font-body-lg text-body-lg transition-colors placeholder-on-surface-variant/50 min-h-[48px]" id="mobile-number" pattern="[0-9]{10}" placeholder="10-digit mobile number" required="" type="tel">
+</div>
+<!-- Helper Text / Error Placement -->
+<p class="font-label-sm text-label-sm text-on-surface-variant hidden">Please enter a valid 10-digit number.</p>
+</div>
+<!-- Primary Action -->
+<button class="w-full bg-primary hover:bg-primary/90 text-on-primary font-title-md text-title-md py-3 rounded-lg shadow-sm transition-all active:scale-[0.98] min-h-[48px] flex items-center justify-center gap-2" type="submit">
+<span class="">Send OTP</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</form>
+<!-- Trust Badge / Security Info -->
+<div class="mt-sm flex items-center justify-center gap-xs text-secondary bg-secondary-container/20 py-2 px-3 rounded-lg border border-secondary-container">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">lock</span>
+<span class="font-label-sm text-label-sm text-on-secondary-fixed-variant">256-bit Bank Grade Encryption</span>
+</div>
+<!-- Secondary Links -->
+<div class="text-center border-t border-outline-variant pt-md mt-sm">
+<p class="font-label-sm text-label-sm text-on-surface-variant">
+                    By continuing, you agree to our 
+                    <a class="text-primary hover:underline font-bold" href="#">Terms of Service</a> and 
+                    <a class="text-primary hover:underline font-bold" href="#">Privacy Policy</a>.
+                </p>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-md px-margin-mobile flex flex-col md:flex-row items-center justify-between gap-sm bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant dark:border-outline z-10">
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-label-lg font-bold text-primary">Gatmitra</span>
+<span class="font-label-sm text-label-sm text-secondary dark:text-secondary-fixed-dim">© 2024 Gatmitra FinTech. Secure &amp; Trusted.</span>
+</div>
+<div class="flex items-center gap-sm">
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors cursor-pointer" href="#">English</a>
+<span class="text-outline-variant">|</span>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors cursor-pointer" href="#">मराठी</a>
+<span class="text-outline-variant">|</span>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors cursor-pointer" href="#">हिन्दी</a>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for input focus state simulation if needed, 
+        // though Tailwind handles mostly everything.
+        const input = document.getElementById('mobile-number');
+        input.addEventListener('input', function (e) {
+            // Basic numeric only formatting visual feedback
+            this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
+        });
+    </script>
+
+
+</body></html>

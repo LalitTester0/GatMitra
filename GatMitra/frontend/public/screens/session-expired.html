@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Session Expired - Gatmitra</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#005312",
+                        "error-container": "#ffdad6",
+                        "surface": "#fbf8ff",
+                        "surface-container-high": "#eae7ef",
+                        "surface-variant": "#e4e1ea",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#5c1800",
+                        "primary-fixed": "#e0e0ff",
+                        "secondary": "#1b6d24",
+                        "primary-container": "#1a237e",
+                        "surface-container": "#efecf5",
+                        "surface-container-low": "#f5f2fb",
+                        "secondary-fixed-dim": "#88d982",
+                        "surface-container-highest": "#e4e1ea",
+                        "tertiary-fixed": "#ffdbd0",
+                        "error": "#ba1a1a",
+                        "background": "#fbf8ff",
+                        "on-primary-fixed-variant": "#343d96",
+                        "on-error": "#ffffff",
+                        "primary": "#000666",
+                        "secondary-fixed": "#a3f69c",
+                        "on-background": "#1b1b21",
+                        "surface-tint": "#4c56af",
+                        "on-primary-container": "#8690ee",
+                        "on-surface-variant": "#454652",
+                        "outline": "#767683",
+                        "inverse-primary": "#bdc2ff",
+                        "inverse-on-surface": "#f2eff8",
+                        "outline-variant": "#c6c5d4",
+                        "surface-dim": "#dbd9e1",
+                        "tertiary": "#380b00",
+                        "on-secondary-container": "#217128",
+                        "surface-bright": "#fbf8ff",
+                        "on-primary-fixed": "#000767",
+                        "on-tertiary-fixed-variant": "#7b2e12",
+                        "on-surface": "#1b1b21",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#002204",
+                        "secondary-container": "#a0f399",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#bdc2ff",
+                        "inverse-surface": "#303036",
+                        "on-tertiary-fixed": "#390c00",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#e17c5a",
+                        "tertiary-fixed-dim": "#ffb59d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "lg": "40px",
+                        "margin-desktop": "48px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "md": "24px",
+                        "margin-mobile": "16px",
+                        "sm": "12px",
+                        "xl": "64px"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "title-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Level 1 (Cards): Soft, diffused shadow per style guide */
+        .card-shadow {
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-surface min-h-screen flex flex-col font-body-md text-on-surface antialiased">
+<!-- Main Canvas Area -->
+<!-- Navigation shell is suppressed per 'The Semantic Shell Mandate' for linear/transactional intents. -->
+<main class="flex-grow flex items-center justify-center p-margin-mobile md:p-margin-desktop relative overflow-hidden">
+<!-- Subtle Background Decoration for Premium SaaS feel -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center opacity-30">
+<div class="w-[800px] h-[800px] rounded-full bg-primary-fixed-dim blur-3xl mix-blend-multiply opacity-20 transform translate-x-1/4 -translate-y-1/4"></div>
+<div class="w-[600px] h-[600px] rounded-full bg-secondary-fixed-dim blur-3xl mix-blend-multiply opacity-20 transform -translate-x-1/3 translate-y-1/3"></div>
+</div>
+<!-- Session Expired Card -->
+<div class="bg-surface-container-lowest rounded-xl card-shadow w-full max-w-[420px] p-md md:p-lg flex flex-col items-center text-center relative z-10">
+<!-- Icon Container -->
+<div class="w-24 h-24 mb-md flex items-center justify-center"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQb0DvB5zO0bR00VGze-cxroJgflWWJ6PPM2yRsmjtoI9_XsXxlzROYaF5FLkTwOjlh7I75jlyuyqq_QtoftQNhkmn7c-HTcnGF2pyeV29kTy7_FLEQzh9igNKjlyBiB0yTlPyff1DgZsAqNCBd-tTZ-nrro8Zc6nM2jtmtEAWEDruoE3xDi15eQNaifaVRdhtxG68NQDDb6aeQE4yr08AOQ1YDYsksOsQ7bbSza9Npw2mVdRskSpA2gv0kSWPjdLKnlCGtYgUhSso" alt="Gatmitra Logo" class="w-full h-full object-contain"></div>
+<!-- Text Content -->
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface mb-base">
+                Session Expired
+            </h1>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg px-xs">For your security, your session has timed out due to inactivity. Please log in again to continue managing your Gatmitra account.</p>
+<!-- Action Button -->
+<!-- Base height 48px to meet touch target accessibility requirements -->
+<button class="w-full h-[48px] bg-primary text-on-primary rounded font-label-lg text-label-lg transition-opacity hover:opacity-90 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-fixed focus:ring-offset-2 focus:ring-offset-surface-container-lowest flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-[20px]" data-icon="login">login</span>
+<span class="">Login Again</span>
+</button>
+</div>
+</main>
+<!-- Footer Component Execution -->
+<footer class="bg-surface-container-lowest w-full bottom-0 border-t border-outline-variant py-md px-margin-mobile flex flex-col md:flex-row items-center justify-between gap-sm relative z-10">
+<div class="font-label-sm text-label-sm text-secondary">© 2024 Gatmitra FinTech. Secure &amp; Trusted.</div>
+<div class="flex gap-md">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer" href="#">English</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer" href="#">मराठी</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer" href="#">हिन्दी</a>
+</div>
+</footer>
+
+
+</body></html>

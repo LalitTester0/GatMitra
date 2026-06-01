@@ -1,0 +1,170 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Account Deactivated - Gatmitra</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom Shadow mapping based on design guidance for Level 1 */
+        .shadow-level-1 {
+            box-shadow: 0px 2px 8px rgba(0,0,0,0.08);
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#005312",
+                        "error-container": "#ffdad6",
+                        "surface": "#fbf8ff",
+                        "surface-container-high": "#eae7ef",
+                        "surface-variant": "#e4e1ea",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#5c1800",
+                        "primary-fixed": "#e0e0ff",
+                        "secondary": "#1b6d24",
+                        "primary-container": "#1a237e",
+                        "surface-container": "#efecf5",
+                        "surface-container-low": "#f5f2fb",
+                        "secondary-fixed-dim": "#88d982",
+                        "surface-container-highest": "#e4e1ea",
+                        "tertiary-fixed": "#ffdbd0",
+                        "error": "#ba1a1a",
+                        "background": "#fbf8ff",
+                        "on-primary-fixed-variant": "#343d96",
+                        "on-error": "#ffffff",
+                        "primary": "#000666",
+                        "secondary-fixed": "#a3f69c",
+                        "on-background": "#1b1b21",
+                        "surface-tint": "#4c56af",
+                        "on-primary-container": "#8690ee",
+                        "on-surface-variant": "#454652",
+                        "outline": "#767683",
+                        "inverse-primary": "#bdc2ff",
+                        "inverse-on-surface": "#f2eff8",
+                        "outline-variant": "#c6c5d4",
+                        "surface-dim": "#dbd9e1",
+                        "tertiary": "#380b00",
+                        "on-secondary-container": "#217128",
+                        "surface-bright": "#fbf8ff",
+                        "on-primary-fixed": "#000767",
+                        "on-tertiary-fixed-variant": "#7b2e12",
+                        "on-surface": "#1b1b21",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#002204",
+                        "secondary-container": "#a0f399",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#bdc2ff",
+                        "inverse-surface": "#303036",
+                        "on-tertiary-fixed": "#390c00",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#e17c5a",
+                        "tertiary-fixed-dim": "#ffb59d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "lg": "40px",
+                        "margin-desktop": "48px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "md": "24px",
+                        "margin-mobile": "16px",
+                        "sm": "12px",
+                        "xl": "64px"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "title-md": ["Inter", "sans-serif"],
+                        "headline-lg": ["Inter", "sans-serif"],
+                        "display-lg": ["Inter", "sans-serif"],
+                        "label-sm": ["Inter", "sans-serif"],
+                        "headline-lg-mobile": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background min-h-screen flex flex-col font-body-md text-on-background">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-margin-mobile md:px-margin-desktop h-16 bg-surface shadow-sm">
+<div class="flex items-center gap-sm">
+<button aria-label="Go back" class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-100 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<div class="flex items-center gap-sm"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQb0DvB5zO0bR00VGze-cxroJgflWWJ6PPM2yRsmjtoI9_XsXxlzROYaF5FLkTwOjlh7I75jlyuyqq_QtoftQNhkmn7c-HTcnGF2pyeV29kTy7_FLEQzh9igNKjlyBiB0yTlPyff1DgZsAqNCBd-tTZ-nrro8Zc6nM2jtmtEAWEDruoE3xDi15eQNaifaVRdhtxG68NQDDb6aeQE4yr08AOQ1YDYsksOsQ7bbSza9Npw2mVdRskSpA2gv0kSWPjdLKnlCGtYgUhSso" alt="Gatmitra Logo" class="h-10 w-auto"><span class="font-headline-lg-mobile text-headline-lg-mobile text-primary font-bold tracking-tight">Gatmitra</span></div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<!-- Applying structural trust and clear card-based layout for error/terminal state -->
+<main class="flex-grow flex items-center justify-center px-margin-mobile pt-24 pb-16">
+<div class="bg-surface-container-lowest rounded-xl shadow-level-1 p-md md:p-lg w-full max-w-md flex flex-col items-center text-center gap-gutter">
+<!-- Icon Indicator -->
+<div class="w-16 h-16 rounded-full bg-error-container text-on-error-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[32px]" data-icon="block" data-weight="fill" style="font-variation-settings: 'FILL' 1;">block</span>
+</div>
+<!-- Text Content -->
+<div class="flex flex-col gap-xs w-full">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Account Deactivated</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    For security purposes, this account has been suspended. Please review our terms or contact administrative support to resolve this issue and restore access to your financial group.
+                </p>
+</div>
+<!-- Support Contact Module -->
+<div class="bg-surface-container-low rounded-lg p-md w-full flex flex-col gap-sm text-left border border-outline-variant">
+<h2 class="font-title-md text-title-md text-on-surface mb-xs">Support Contact</h2>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline" data-icon="mail">mail</span>
+<a class="font-body-md text-body-md text-primary hover:underline" href="mailto:support@gatmitra.com" style="opacity: 0;">support@gatmitra.com</a>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline" data-icon="call">call</span>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="tel:+918001234567">1800-123-4567 (Toll Free)</a>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full h-12 bg-primary text-on-primary font-label-lg text-label-lg rounded-full hover:bg-on-primary-fixed-variant transition-colors flex items-center justify-center gap-sm mt-xs">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+                Return to Login
+            </button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-md px-margin-mobile flex flex-col md:flex-row items-center justify-between gap-sm bg-surface-container-lowest border-t border-outline-variant mt-auto">
+<div class="font-label-lg text-label-lg font-bold text-primary">© 2024 Gatmitra FinTech. Secure &amp; Trusted.</div>
+<div class="flex items-center gap-md">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer text-primary font-bold underline" href="#">English</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer" href="#">मराठी</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer" href="#">हिन्दी</a>
+</div>
+</footer>
+
+
+</body></html>

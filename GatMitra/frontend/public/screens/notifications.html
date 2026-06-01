@@ -1,0 +1,400 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Gatmitra - Notifications</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#a0f399",
+                        "inverse-on-surface": "#f2eff8",
+                        "on-surface": "#1b1b21",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#000767",
+                        "inverse-surface": "#303036",
+                        "primary-fixed": "#e0e0ff",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#217128",
+                        "primary-container": "#1a237e",
+                        "surface-container-highest": "#e4e1ea",
+                        "surface-container": "#efecf5",
+                        "on-primary-fixed-variant": "#343d96",
+                        "surface-bright": "#fbf8ff",
+                        "surface-container-low": "#f5f2fb",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e4e1ea",
+                        "surface-container-high": "#eae7ef",
+                        "secondary-fixed-dim": "#88d982",
+                        "background": "#fbf8ff",
+                        "surface-dim": "#dbd9e1",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#bdc2ff",
+                        "surface": "#fbf8ff",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-container": "#e17c5a",
+                        "surface-tint": "#4c56af",
+                        "primary": "#000666",
+                        "on-tertiary-fixed-variant": "#7b2e12",
+                        "tertiary": "#380b00",
+                        "tertiary-container": "#5c1800",
+                        "on-background": "#1b1b21",
+                        "on-secondary-fixed-variant": "#005312",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "on-tertiary-fixed": "#390c00",
+                        "outline": "#767683",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#454652",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffdbd0",
+                        "outline-variant": "#c6c5d4",
+                        "primary-fixed-dim": "#bdc2ff",
+                        "secondary": "#1b6d24",
+                        "on-primary-container": "#8690ee",
+                        "secondary-fixed": "#a3f69c",
+                        "on-secondary-fixed": "#002204"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "64px",
+                        "sm": "12px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "margin-desktop": "48px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "md": "24px",
+                        "lg": "40px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "title-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500"}],
+                        "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #F5F5F5;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c6c5d4;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface">
+<div class="flex min-h-screen">
+<!-- Sidebar -->
+<aside class="flex flex-col h-screen sticky top-0 overflow-y-auto bg-surface-container-low border-r border-outline-variant w-72 shrink-0 hidden md:flex">
+<div class="p-gutter flex items-center gap-sm">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+</div>
+<div>
+<h1 class="text-title-md font-title-md font-bold text-primary">Admin Central</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Enterprise Finance</p>
+</div>
+</div>
+<nav class="flex-1 mt-base">
+<a class="flex items-center text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined mr-4 group-hover:text-primary" data-icon="dashboard">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined mr-4 group-hover:text-primary" data-icon="groups">groups</span>
+<span class="font-label-lg text-label-lg">Bachat Gat Management</span>
+</a>
+
+
+<a class="flex items-center text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-highest transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined mr-4 group-hover:text-primary" data-icon="history_edu">history_edu</span>
+<span class="font-label-lg text-label-lg">Audit Logs</span>
+</a>
+
+
+</nav>
+<div class="mt-auto p-gutter border-t border-outline-variant">
+<div class="flex items-center gap-sm">
+<img alt="Super Admin Profile" class="w-10 h-10 rounded-full" data-alt="A professional headshot of a senior financial administrator in a corporate setting. He is wearing a charcoal suit and a light blue shirt, looking directly at the camera with a confident yet approachable expression. The background is a blurred office environment with soft morning light, echoing the high-trust, stable enterprise finance aesthetic of the Gatmitra platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfWaAfjsoOIAmR-u8Kk9QYnis45ZXxUQyBu_iaq2i-5G_6Y2gX5ARJk2h0XSjO-al7gfLrYfkQa1t3PTNQlTsZM1dRxtvQZmZwEPrd6B26dqOeCYLkgyDqayVIcBhV4yqdTTfHHj5YiV4SxZukI58RTPKoUVLbYadMzNTHDnSMX_oXhvY_YuYQb4T5_A7kZoNGwVaqjxIF3Izq4kFKLVbOxLsHU23sZJOiPWzmgpAmLQimETkjDX0vLKjkv3fQkvI2hTGJ8WT1WNgN">
+<div class="overflow-hidden">
+<p class="text-label-lg font-label-lg font-bold truncate">Rajesh Kumar</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Super Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col min-w-0">
+<!-- Top Navbar -->
+<header class="flex justify-between items-center w-full px-gutter h-16 sticky top-0 z-40 bg-surface border-b border-outline-variant shadow-sm">
+<div class="flex items-center gap-sm">
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<span class="text-title-md font-title-md font-bold text-primary">Gatmitra</span>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-label-lg focus:ring-2 focus:ring-primary w-64 lg:w-96" placeholder="Search notifications..." type="text">
+</div>
+<div class="flex items-center gap-sm">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="language">language</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-highest transition-colors relative">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<div class="p-gutter lg:p-lg space-y-md max-w-7xl mx-auto w-full">
+<!-- Header Actions -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-gutter">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Notifications</h2>
+<p class="text-body-md font-body-md text-on-surface-variant">Stay updated with the latest activities across your Bachat Gats.</p>
+</div>
+<div class="flex items-center gap-sm">
+<button class="flex items-center gap-xs px-4 py-2 text-primary border-2 border-primary rounded-lg font-label-lg hover:bg-primary hover:text-white transition-all active:scale-[0.98]" onclick="markAllRead()">
+<span class="material-symbols-outlined text-[18px]" data-icon="done_all">done_all</span>
+                            Mark all as read
+                        </button>
+<button class="flex items-center gap-xs px-4 py-2 bg-primary text-on-primary rounded-lg font-label-lg hover:bg-primary-container transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]" data-icon="settings">settings</span>
+                            Preferences
+                        </button>
+</div>
+</div>
+<!-- Filters & Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Filters Sidebar -->
+<div class="lg:col-span-3 space-y-gutter">
+<div class="bg-white p-gutter rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)]">
+<h3 class="font-title-md text-on-surface mb-md">Categories</h3>
+<div class="space-y-sm">
+<label class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low cursor-pointer group border border-transparent transition-all">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="shield">shield</span>
+<span class="text-label-lg">Security</span>
+</div>
+<input checked="" class="rounded border-outline text-primary focus:ring-primary h-5 w-5" type="checkbox">
+</label>
+<label class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low cursor-pointer group border border-transparent transition-all">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="payments">payments</span>
+<span class="text-label-lg">Transaction</span>
+</div>
+<input checked="" class="rounded border-outline text-primary focus:ring-primary h-5 w-5" type="checkbox">
+</label>
+<label class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low cursor-pointer group border border-transparent transition-all">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-tertiary-fixed-dim" data-icon="diversity_3" style="color:#e17c5a">diversity_3</span>
+<span class="text-label-lg">Group</span>
+</div>
+<input checked="" class="rounded border-outline text-primary focus:ring-primary h-5 w-5" type="checkbox">
+</label>
+<label class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low cursor-pointer group border border-transparent transition-all">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="settings_suggest">settings_suggest</span>
+<span class="text-label-lg">System</span>
+</div>
+<input checked="" class="rounded border-outline text-primary focus:ring-primary h-5 w-5" type="checkbox">
+</label>
+</div>
+</div>
+<!-- Stats Card -->
+<div class="bg-primary-container text-on-primary-container p-gutter rounded-xl shadow-sm relative overflow-hidden">
+<div class="relative z-10">
+<h4 class="text-label-lg font-bold opacity-80">Unread Alert</h4>
+<div class="text-display-lg font-display-lg mt-xs">12</div>
+<p class="text-label-sm mt-sm">Since your last login 2 hours ago.</p>
+</div>
+<!-- Background Decoration -->
+<div class="absolute -right-8 -bottom-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+</div>
+</div>
+<!-- Notification List -->
+<div class="lg:col-span-9 space-y-sm">
+<!-- Notification Item: Unread Security -->
+<div class="bg-white p-md rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] border-l-4 border-error flex gap-md relative group hover:shadow-lg transition-all notification-card" style="transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);">
+<div class="w-12 h-12 shrink-0 bg-error-container text-on-error-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h4 class="font-bold text-body-lg text-on-surface truncate">Security Alert: New Login</h4>
+<span class="text-label-sm text-on-surface-variant whitespace-nowrap ml-gutter">2 mins ago</span>
+</div>
+<p class="text-body-md text-on-surface-variant mt-xs">A new login was detected from a new Chrome browser on Linux (192.168.1.1). If this wasn't you, please change your password immediately.</p>
+<div class="flex gap-sm mt-md">
+<button class="px-4 py-1.5 bg-error text-white rounded-lg text-label-sm font-bold">Secure Account</button>
+<button class="px-4 py-1.5 border border-outline-variant rounded-lg text-label-sm hover:bg-surface-container-low">Ignore</button>
+</div>
+</div>
+<div class="absolute top-md right-md opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined" data-icon="more_vert">more_vert</span></button>
+</div>
+</div>
+<!-- Notification Item: Read Transaction -->
+<div class="bg-surface-container-low p-md rounded-xl border border-outline-variant flex gap-md opacity-75 notification-card" style="transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);">
+<div class="w-12 h-12 shrink-0 bg-secondary-container text-on-secondary-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h4 class="font-bold text-body-lg text-on-surface truncate">Transaction Successful</h4>
+<span class="text-label-sm text-on-surface-variant whitespace-nowrap ml-gutter">1 hour ago</span>
+</div>
+<p class="text-body-md text-on-surface-variant mt-xs">Loan repayment of ₹5,400 from 'Mahila Shakti' group has been credited to the central treasury account.</p>
+</div>
+</div>
+<!-- Notification Item: Unread Group -->
+<div class="bg-white p-md rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] border-l-4 border-primary flex gap-md notification-card">
+<div class="w-12 h-12 shrink-0 bg-primary-container/20 text-primary rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="diversity_3" style="font-variation-settings: 'FILL' 1;">diversity_3</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h4 class="font-bold text-body-lg text-on-surface truncate">New Group Request</h4>
+<span class="text-label-sm text-on-surface-variant whitespace-nowrap ml-gutter">3 hours ago</span>
+</div>
+<p class="text-body-md text-on-surface-variant mt-xs">'Prerna Bachat Gat' has requested to join the platform. 12 members verification pending.</p>
+<div class="mt-md">
+<a class="text-primary font-bold text-label-lg hover:underline flex items-center gap-xs" href="#">
+                                        Review Application <span class="material-symbols-outlined text-[16px]" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Notification Item: Read System -->
+<div class="bg-surface-container-low p-md rounded-xl border border-outline-variant flex gap-md opacity-75 notification-card">
+<div class="w-12 h-12 shrink-0 bg-surface-container-highest text-on-surface-variant rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="update">update</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h4 class="font-bold text-body-lg text-on-surface truncate">System Maintenance Complete</h4>
+<span class="text-label-sm text-on-surface-variant whitespace-nowrap ml-gutter">Yesterday</span>
+</div>
+<p class="text-body-md text-on-surface-variant mt-xs">Scheduled database optimization has been completed. All services are running optimally.</p>
+</div>
+</div>
+<!-- Notification Item: Unread Transaction -->
+<div class="bg-white p-md rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] border-l-4 border-secondary flex gap-md notification-card">
+<div class="w-12 h-12 shrink-0 bg-secondary-container text-on-secondary-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="savings">savings</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h4 class="font-bold text-body-lg text-on-surface truncate">Deposit Threshold Reached</h4>
+<span class="text-label-sm text-on-surface-variant whitespace-nowrap ml-gutter">Yesterday</span>
+</div>
+<p class="text-body-md text-on-surface-variant mt-xs">Group 'Gram Vikas' has exceeded the monthly savings threshold of ₹50,000. Consider high-yield investment options.</p>
+</div>
+</div>
+<!-- Load More -->
+<div class="pt-gutter flex justify-center">
+<button class="px-8 py-3 text-primary font-bold text-label-lg hover:bg-primary-fixed rounded-lg transition-colors border border-outline-variant">
+                                Load Previous Notifications
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Contextual FAB (Only shown when scrolling or specific intent, here for demonstration) -->
+<button class="fixed bottom-gutter right-gutter w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50 group">
+<span class="material-symbols-outlined" data-icon="edit_notifications">edit_notifications</span>
+<span class="absolute right-full mr-4 bg-inverse-surface text-inverse-on-surface px-3 py-1 rounded text-label-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Broadcast Notification</span>
+</button>
+</main>
+</div>
+<!-- Mobile Bottom Nav -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface border-t border-outline-variant flex justify-around items-center h-16 z-50">
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="text-[10px]">Groups</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-primary font-bold" href="#">
+<span class="material-symbols-outlined" data-icon="notifications" style="font-variation-settings: 'FILL' 1;">notifications</span>
+<span class="text-[10px]">Alerts</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px]">Profile</span>
+</a>
+</nav>
+<script>
+        function markAllRead() {
+            const unreadCards = document.querySelectorAll('.notification-card.bg-white');
+            unreadCards.forEach(card => {
+                card.classList.remove('bg-white', 'shadow-[0px_2px_8px_rgba(0,0,0,0.08)]', 'border-l-4');
+                card.classList.add('bg-surface-container-low', 'border', 'border-outline-variant', 'opacity-75');
+                // Optional: visual feedback for "saving" state
+                card.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    card.style.transform = 'scale(1)';
+                }, 200);
+            });
+            // Update the counter
+            const counter = document.querySelector('.text-display-lg');
+            if (counter) {
+                counter.innerText = '0';
+                counter.classList.add('text-secondary');
+            }
+        }
+
+        // Add hover effects and micro-interactions
+        document.querySelectorAll('.notification-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+        });
+    </script>
+
+
+</body></html>

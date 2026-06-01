@@ -1,0 +1,426 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Admin Dashboard - Bachat Gat Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#a0f399",
+                        "on-secondary-container": "#217128",
+                        "primary-container": "#1a237e",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#fbf8ff",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#1b6d24",
+                        "outline-variant": "#c6c5d4",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#8690ee",
+                        "tertiary-container": "#5c1800",
+                        "surface-tint": "#4c56af",
+                        "inverse-surface": "#303036",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#bdc2ff",
+                        "surface-bright": "#fbf8ff",
+                        "on-tertiary-container": "#e17c5a",
+                        "inverse-on-surface": "#f2eff8",
+                        "surface-container-low": "#f5f2fb",
+                        "outline": "#767683",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#390c00",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e4e1ea",
+                        "surface-container-high": "#eae7ef",
+                        "on-secondary-fixed": "#002204",
+                        "on-primary-fixed": "#000767",
+                        "tertiary-fixed": "#ffdbd0",
+                        "on-background": "#1b1b21",
+                        "secondary-fixed": "#a3f69c",
+                        "secondary-fixed-dim": "#88d982",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e4e1ea",
+                        "on-secondary-fixed-variant": "#005312",
+                        "on-tertiary-fixed-variant": "#7b2e12",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "tertiary": "#380b00",
+                        "primary-fixed": "#e0e0ff",
+                        "on-primary-fixed-variant": "#343d96",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#bdc2ff",
+                        "surface-container": "#efecf5",
+                        "primary": "#000666",
+                        "background": "#fbf8ff",
+                        "surface-dim": "#dbd9e1",
+                        "on-surface-variant": "#454652",
+                        "on-surface": "#1b1b21"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "xl": "64px",
+                        "gutter": "24px",
+                        "md": "24px",
+                        "margin-desktop": "48px",
+                        "lg": "40px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "title-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Hide scrollbar for horizontal scroll areas */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- Mobile TopNav (Visible only on md:hidden) -->
+<header class="md:hidden flex justify-between items-center w-full px-margin-mobile h-16 fixed top-0 z-[100] bg-surface border-b border-outline-variant shadow-sm">
+  <div class="flex items-center gap-sm">
+    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuChhwhIWYuXlx0tPnTh9P2ZWYE7iTbr07H6JtHFO9Jo-5oOBjUeWCV7pGqfovGc-dhiDXRYuU0xrTrpbMTfMkRng3SS0m8aKXznd72gfBfO0fQ8qKqhwGksbenimlePB5FllSjUxgJuw7yLdB97yoi0m-KVmT2516IrTpUayhOs3KRPTA_h1A8uTSadePNwzYmnwnhmTNsT6g7id6-jTmJ58w8Kd9ehW5gKEiacFcv8U7JgbbWjZ_kuU5zlPvxOiqx_Oqyxz8hVqgDE" alt="Gatmitra Logo" class="h-8 w-auto">
+    <span class="text-title-md font-title-md font-bold text-primary">Gatmitra</span>
+  </div>
+  <div class="flex gap-sm text-primary">
+    <span class="material-symbols-outlined cursor-pointer">search</span>
+    <div class="relative">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="absolute -top-1 -right-1 w-4 h-4 bg-error text-white text-[10px] flex items-center justify-center rounded-full font-bold">12</span>
+    </div>
+    <img alt="Super Admin Profile" class="w-8 h-8 rounded-full border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr30lKaCwJ0DPjLKH0Ho6cwifRvHNfgvTPtZB4m67V5yZXXJ-6xuOgNWQ1no0Nxzk31jnQwXri2c3AFe6wZ_4ga55V3QwyVmCgbyQFrS1kJLQdvniMyrHtDbeKUpg9zQZRuXXAhbC9apP1QoeGF9G_vnvu9P3vgcuL6qneFrsTdcW_0RW5Qk2XmHYJxWBJGLxU1jE16x-ji-avBP5j4u9OijhBvTpSd__Bfrbx5GAiRK_oEbadnqvIOg9EiBnsI_k6MvLQnu6fenHJ">
+  </div>
+</header><div class="absolute right-margin-desktop top-32 w-80 bg-surface-container-lowest rounded-2xl shadow-2xl border border-outline-variant z-[60] hidden group-hover:block" id="notif-dropdown"><div class="p-4 border-b border-outline-variant flex justify-between items-center"><h3 class="font-bold text-on-surface">Notifications</h3><button class="text-primary text-label-sm font-bold hover:underline">Mark all as read</button></div><div class="max-h-96 overflow-y-auto custom-scrollbar"><div class="p-4 border-b border-outline-variant hover:bg-surface-container-low cursor-pointer"><div class="flex gap-3"><div class="w-8 h-8 rounded-full bg-primary-container/20 text-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-sm">diversity_3</span></div><div><p class="text-label-lg font-bold">New Group Request</p><p class="text-label-sm text-on-surface-variant">'Prerna Bachat Gat' has requested to join...</p></div></div></div><div class="p-4 border-b border-outline-variant hover:bg-surface-container-low cursor-pointer"><div class="flex gap-3"><div class="w-8 h-8 rounded-full bg-error-container text-on-error-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-sm">security</span></div><div><p class="text-label-lg font-bold">Security Alert</p><p class="text-label-sm text-on-surface-variant">New login detected from Linux browser.</p></div></div></div><div class="p-4 border-b border-outline-variant hover:bg-surface-container-low cursor-pointer"><div class="flex gap-3"><div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-sm">update</span></div><div><p class="text-label-lg font-bold">System Update</p><p class="text-label-sm text-on-surface-variant">Maintenance scheduled for tonight.</p></div></div></div></div><a class="block w-full py-3 text-center text-primary font-bold text-label-lg hover:bg-surface-container-low transition-colors" href="#">View All</a></div>
+<!-- Desktop SideNav (Visible on hidden md:flex) -->
+<nav class="hidden md:flex flex-col h-screen sticky top-0 overflow-y-auto bg-surface-container-low shadow-sm border-r border-outline-variant w-72 shrink-0 z-40">
+<div class="p-md flex items-center gap-sm mb-md"><div class="flex items-center gap-sm">
+  <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuChhwhIWYuXlx0tPnTh9P2ZWYE7iTbr07H6JtHFO9Jo-5oOBjUeWCV7pGqfovGc-dhiDXRYuU0xrTrpbMTfMkRng3SS0m8aKXznd72gfBfO0fQ8qKqhwGksbenimlePB5FllSjUxgJuw7yLdB97yoi0m-KVmT2516IrTpUayhOs3KRPTA_h1A8uTSadePNwzYmnwnhmTNsT6g7id6-jTmJ58w8Kd9ehW5gKEiacFcv8U7JgbbWjZ_kuU5zlPvxOiqx_Oqyxz8hVqgDE" alt="Gatmitra Logo" class="w-10 h-10 object-contain">
+  <div>
+    <h1 class="text-title-md font-title-md font-bold text-primary">Gatmitra</h1>
+    <p class="text-label-sm font-label-sm text-on-surface-variant">Enterprise Finance</p>
+  </div>
+</div></div>
+<div class="flex-1 flex flex-col gap-xs pb-md">
+<!-- Active Tab -->
+<a class="bg-primary-container text-on-primary-container font-bold rounded-lg mx-2 px-4 py-3 flex items-center gap-sm transition-all scale-[0.98]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">dashboard</span>
+<span class="text-label-lg font-label-lg">Dashboard</span>
+</a>
+<!-- Inactive Tabs -->
+<a class="text-on-surface-variant px-4 py-3 mx-2 flex items-center gap-sm hover:bg-surface-container-highest transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="text-label-lg font-label-lg">Bachat Gat Management</span>
+</a>
+
+<a class="text-on-surface-variant px-4 py-3 mx-2 flex items-center gap-sm hover:bg-surface-container-highest transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="text-label-lg font-label-lg">Audit Logs</span>
+</a>
+
+</div>
+
+</nav>
+<!-- Main Canvas -->
+<main class="flex-1 w-full bg-[#F5F5F5] min-h-screen relative pb-24 md:pb-8 pt-20">
+<!-- Desktop Header Area -->
+<div class="hidden md:flex fixed top-0 left-72 right-0 h-20 bg-surface border-b border-outline-variant px-margin-desktop items-center justify-between z-50">
+  <div class="flex-1 max-w-xl relative">
+    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+    <input type="text" placeholder="Search..." class="w-full pl-12 pr-4 py-2.5 bg-surface-container-low border-none rounded-full text-body-md focus:ring-2 focus:ring-primary/20">
+  </div>
+  <div class="flex items-center gap-lg">
+    <div class="flex items-center gap-md">
+      <button class="p-2 hover:bg-surface-container-high rounded-full transition-colors text-on-surface-variant">
+        <span class="material-symbols-outlined">language</span>
+      </button>
+      <button class="p-2 hover:bg-surface-container-high rounded-full transition-colors text-on-surface-variant relative">
+        <span class="material-symbols-outlined">notifications</span>
+        <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full"></span>
+      </button>
+    </div>
+    <div class="h-8 w-[1px] bg-outline-variant"></div>
+    <div class="flex items-center gap-sm cursor-pointer group">
+      <img alt="Super Admin" class="w-10 h-10 rounded-full border border-outline-variant shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr30lKaCwJ0DPjLKH0Ho6cwifRvHNfgvTPtZB4m67V5yZXXJ-6xuOgNWQ1no0Nxzk31jnQwXri2c3AFe6wZ_4ga55V3QwyVmCgbyQFrS1kJLQdvniMyrHtDbeKUpg9zQZRuXXAhbC9apP1QoeGF9G_vnvu9P3vgcuL6qneFrsTdcW_0RW5Qk2XmHYJxWBJGLxU1jE16x-ji-avBP5j4u9OijhBvTpSd__Bfrbx5GAiRK_oEbadnqvIOg9EiBnsI_k6MvLQnu6fenHJ">
+      <div class="flex flex-col">
+        <span class="text-label-lg font-bold text-on-surface">Super Admin</span>
+        <span class="text-label-sm text-on-surface-variant leading-tight">Administrator</span>
+      </div>
+      <span class="material-symbols-outlined text-on-surface-variant">expand_more</span>
+    </div>
+  </div>
+</div>
+<!-- Mobile Header Area -->
+
+<div class="px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-md md:gap-gutter">
+<!-- LEFT COLUMN: Tasks & Main Content (Takes up 8 cols on desktop) -->
+<div class="lg:col-span-8 flex flex-col gap-md md:gap-gutter">
+<!-- Quick Metrics (Horizontal Scroll) -->
+<div class="-mx-margin-mobile px-margin-mobile md:mx-0 md:px-0 overflow-x-auto hide-scrollbar pb-xs">
+<div class="flex gap-sm md:gap-md min-w-max">
+<!-- Metric Card 1 -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] w-64 shrink-0 border border-outline-variant/30 flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div class="w-10 h-10 rounded-full bg-primary-container/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<span class="bg-secondary-container text-on-secondary-container text-label-sm font-label-sm px-2 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_up</span> 12%
+                                </span>
+</div>
+<div>
+<p class="text-label-lg font-label-lg text-on-surface-variant">Total Deposits</p>
+<p class="text-headline-lg-mobile font-headline-lg-mobile text-primary mt-1">₹45,20,000</p>
+</div>
+</div>
+<!-- Metric Card 2 -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] w-64 shrink-0 border border-outline-variant/30 flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div class="w-10 h-10 rounded-full bg-secondary-container/30 text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined">groups</span>
+</div>
+<span class="bg-surface-container-high text-on-surface text-label-sm font-label-sm px-2 py-1 rounded-full">
+                                    +5 this week
+                                </span>
+</div>
+<div>
+<p class="text-label-lg font-label-lg text-on-surface-variant">Active Groups</p>
+<p class="text-headline-lg-mobile font-headline-lg-mobile text-primary mt-1">128</p>
+</div>
+</div>
+<!-- Metric Card 3 -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] w-64 shrink-0 border border-outline-variant/30 flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div class="w-10 h-10 rounded-full bg-error-container/30 text-error flex items-center justify-center">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<span class="text-error text-label-sm font-label-sm px-2 py-1 flex items-center gap-1">
+                                    Action Req
+                                </span>
+</div>
+<div>
+<p class="text-label-lg font-label-lg text-on-surface-variant">Pending Approvals</p>
+<p class="text-headline-lg-mobile font-headline-lg-mobile text-primary mt-1">14</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Task Center (The Priority) -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] border border-outline-variant/30 overflow-hidden">
+<div class="p-md border-b border-outline-variant/30 flex justify-between items-center bg-surface-bright">
+<h3 class="text-title-md font-title-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">checklist</span> Action Items
+                        </h3>
+<span class="bg-error text-on-error text-label-sm font-label-sm px-2 py-1 rounded-full">3 High Priority</span>
+</div>
+<div class="divide-y divide-outline-variant/20">
+<!-- Task 1 -->
+<div class="p-md flex flex-col sm:flex-row gap-4 items-start sm:items-center hover:bg-surface-container-low transition-colors group">
+<div class="w-12 h-12 rounded-lg bg-surface-variant flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined">person_add</span>
+</div>
+<div class="flex-1">
+<h4 class="text-body-md font-body-md font-semibold text-on-surface">Approve 2 Members for "Savitribai Group"</h4>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1">KYC documents verified automatically. Final admin review needed.</p>
+</div>
+<div class="flex gap-2 w-full sm:w-auto mt-2 sm:mt-0">
+<button class="flex-1 sm:flex-none border-2 border-primary text-primary px-4 py-2 rounded-lg text-label-sm font-label-sm hover:bg-surface-container-highest transition-colors">Review</button>
+<button class="flex-1 sm:flex-none bg-primary text-on-primary px-4 py-2 rounded-lg text-label-sm font-label-sm shadow-sm hover:opacity-90 transition-opacity">Approve</button>
+</div>
+</div>
+<!-- Task 2 -->
+<div class="p-md flex flex-col sm:flex-row gap-4 items-start sm:items-center hover:bg-surface-container-low transition-colors group">
+<div class="w-12 h-12 rounded-lg bg-surface-variant flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined">campaign</span>
+</div>
+<div class="flex-1">
+<h4 class="text-body-md font-body-md font-semibold text-on-surface">Post Monthly Update to all Gat Leaders</h4>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1">Draft is ready. Scheduled for tomorrow at 10:00 AM.</p>
+</div>
+<div class="flex gap-2 w-full sm:w-auto mt-2 sm:mt-0">
+<button class="flex-1 sm:flex-none bg-surface-variant text-on-surface-variant px-4 py-2 rounded-lg text-label-sm font-label-sm hover:bg-outline-variant transition-colors">Edit Draft</button>
+<button class="flex-1 sm:flex-none bg-primary text-on-primary px-4 py-2 rounded-lg text-label-sm font-label-sm shadow-sm hover:opacity-90 transition-opacity">Publish Now</button>
+</div>
+</div>
+<!-- Task 3 -->
+<div class="p-md flex flex-col sm:flex-row gap-4 items-start sm:items-center hover:bg-surface-container-low transition-colors group">
+<div class="w-12 h-12 rounded-lg bg-error-container/20 flex items-center justify-center text-error shrink-0">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<div class="flex-1">
+<h4 class="text-body-md font-body-md font-semibold text-on-surface">Resolve Disputed Transaction #8821</h4>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1">Amount mismatch reported by "Laxmi Bachat Gat".</p>
+</div>
+<div class="flex gap-2 w-full sm:w-auto mt-2 sm:mt-0">
+<button class="w-full sm:w-auto border-2 border-outline text-on-surface-variant px-4 py-2 rounded-lg text-label-sm font-label-sm hover:bg-surface-container-highest transition-colors">View Details</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Members (Card View) -->
+<div>
+<div class="flex justify-between items-end mb-sm">
+<h3 class="text-title-md font-title-md text-on-surface">Recent Member Registrations</h3>
+<a class="text-primary text-label-sm font-label-sm font-semibold hover:underline" href="#">View All</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-sm md:gap-md">
+<!-- Member Card 1 -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] border border-outline-variant/30 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-2">
+<span class="material-symbols-outlined text-outline text-sm cursor-pointer hover:text-primary transition-colors">more_vert</span>
+</div>
+<div class="flex flex-col items-center text-center gap-2 mt-2">
+<img alt="Member Avatar" class="w-16 h-16 rounded-full ring-4 ring-surface-container-low" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdmUG1IBKoVXz2-2sAKXO4fX9MQJqEl2nDRwPnK0bM2n1SWpVeh1Cb-TNYOX-B5TL322lsgSRLzcP1ueWUElg6JwIOER2qgDDegE6lI5Z1fG1-YxWsQ41dJYjk9ULYGKgJoQ_aJjAtbbFs_lr1Lo7BYNWug9Tj1RLjSG1r3K3hYn1eZfFgliqD0Gw6nfw1GmFXW36-me-ODoiK5CNVvH6ygdfff3nXjHYYHS76rBQX6N3ygMAkSnzqF1oIf288Npo9yl_qt-mCvvKI">
+<div>
+<h4 class="text-body-md font-body-md font-semibold text-on-surface">Radha Patil</h4>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Laxmi Group • Joined 2d ago</p>
+</div>
+<div class="mt-2 w-full">
+<div class="flex justify-between text-label-sm font-label-sm mb-1">
+<span class="text-on-surface-variant">KYC Status</span>
+<span class="text-secondary font-semibold">Verified</span>
+</div>
+<div class="w-full bg-surface-variant h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-full rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Member Card 2 -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] border border-outline-variant/30 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-2">
+<span class="material-symbols-outlined text-outline text-sm cursor-pointer hover:text-primary transition-colors">more_vert</span>
+</div>
+<div class="flex flex-col items-center text-center gap-2 mt-2">
+<img alt="Member Avatar" class="w-16 h-16 rounded-full ring-4 ring-surface-container-low" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFGPA223Si-Cy_elNHd-FE4j1iBBiZxHThrXYIY0XyLM0nY7NBHBkIdn_PgaUl7K4rAkZEDe8ky3kwVqAwANgwo8zyBESdgtUYx8za6heDmwU6jKrYkiHfLEEQSF0_DD7d8IWIz-Rb1-7yTLkTNTGK4Es8VHz8H8sXM1NOy423AdmazznBQQjJTe1IQEHKA6c-GhK_R_R5AXYuBXc5NqGqmgE9NZIgMEzclfiUcqQiOZKgql4hWXuwf3twRuPyXoTa_iPEyTWBcySo">
+<div>
+<h4 class="text-body-md font-body-md font-semibold text-on-surface">Sunita Kale</h4>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Savitribai Group • Joined 3d ago</p>
+</div>
+<div class="mt-2 w-full">
+<div class="flex justify-between text-label-sm font-label-sm mb-1">
+<span class="text-on-surface-variant">KYC Status</span>
+<span class="text-on-surface-variant font-semibold">Pending</span>
+</div>
+<div class="w-full bg-surface-variant h-1.5 rounded-full overflow-hidden">
+<div class="bg-outline h-full w-[40%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Feed & Events (Takes up 4 cols on desktop) -->
+<div class="lg:col-span-4 flex flex-col gap-md md:gap-gutter">
+<!-- Recent Activity Feed -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] border border-outline-variant/30 p-md flex flex-col">
+<h3 class="text-title-md font-title-md text-on-surface mb-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">history</span> Activity Feed
+                    </h3>
+<div class="relative pl-6 mt-2 border-l-2 border-surface-variant space-y-6 pb-2">
+<!-- Activity Item -->
+<div class="relative">
+<div class="absolute -left-[31px] w-4 h-4 rounded-full bg-primary border-4 border-surface-container-lowest"></div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-1">10 mins ago</p>
+<p class="text-body-md font-body-md text-on-surface"><span class="font-semibold">Deposit Received:</span> ₹50,000 from <span class="text-primary font-medium">Navdurga Group</span></p>
+</div>
+<!-- Activity Item -->
+<div class="relative">
+<div class="absolute -left-[31px] w-4 h-4 rounded-full bg-secondary border-4 border-surface-container-lowest"></div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-1">2 hours ago</p>
+<p class="text-body-md font-body-md text-on-surface"><span class="font-semibold">Loan Approved:</span> Application #442 for <span class="text-primary font-medium">Prerna Mahila Gat</span></p>
+</div>
+<!-- Activity Item -->
+<div class="relative">
+<div class="absolute -left-[31px] w-4 h-4 rounded-full bg-outline-variant border-4 border-surface-container-lowest"></div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-1">Yesterday, 14:30</p>
+<p class="text-body-md font-body-md text-on-surface"><span class="font-semibold">System Alert:</span> Monthly backup completed successfully.</p>
+</div>
+</div>
+<button class="mt-4 w-full py-2 text-center text-primary text-label-sm font-label-sm font-semibold hover:bg-surface-container-low rounded-lg transition-colors">Load More</button>
+</div>
+<!-- Upcoming Events -->
+<div class="bg-primary-container text-on-primary-container rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] p-md relative overflow-hidden">
+<!-- Decorative background element -->
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-primary/20 rounded-full blur-2xl"></div>
+<h3 class="text-title-md font-title-md text-on-primary font-bold mb-md relative z-10">Upcoming Events</h3>
+<div class="flex flex-col gap-sm relative z-10">
+<div class="bg-surface/10 p-3 rounded-lg flex items-start gap-3 backdrop-blur-sm">
+<div class="bg-surface text-primary rounded-md px-2 py-1 flex flex-col items-center min-w-[48px]">
+<span class="text-[10px] font-bold uppercase tracking-wider">OCT</span>
+<span class="text-title-md font-bold leading-none">12</span>
+</div>
+<div>
+<h4 class="text-label-lg font-label-lg text-on-primary font-semibold">Q3 Review Meeting</h4>
+<p class="text-label-sm font-label-sm text-on-primary-container opacity-80 mt-0.5">Online • 14:00 - 15:30</p>
+</div>
+</div>
+<div class="bg-surface/10 p-3 rounded-lg flex items-start gap-3 backdrop-blur-sm">
+<div class="bg-surface text-primary rounded-md px-2 py-1 flex flex-col items-center min-w-[48px]">
+<span class="text-[10px] font-bold uppercase tracking-wider">OCT</span>
+<span class="text-title-md font-bold leading-none">15</span>
+</div>
+<div>
+<h4 class="text-label-lg font-label-lg text-on-primary font-semibold">Monthly Deposit Deadline</h4>
+<p class="text-label-sm font-label-sm text-on-primary-container opacity-80 mt-0.5">System Wide</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Quick Actions (Sticky on Mobile Bottom, Fixed Right on Desktop) -->
+<div class="fixed bottom-0 left-0 right-0 md:left-auto md:right-margin-desktop md:bottom-margin-desktop bg-surface-container-highest md:bg-transparent p-3 md:p-0 border-t border-outline-variant/30 md:border-none flex justify-around md:flex-col gap-3 z-50 shadow-[0px_-4px_16px_rgba(0,0,0,0.05)] md:shadow-none">
+<!-- Main FAB -->
+<button class="w-14 h-14 bg-primary text-on-primary rounded-2xl md:rounded-full shadow-[0px_8px_24px_rgba(0,0,0,0.12)] flex items-center justify-center hover:scale-105 transition-transform active:scale-95 group relative">
+<span class="material-symbols-outlined text-[28px]">add</span>
+<!-- Tooltip desktop only -->
+<span class="hidden md:block absolute right-full mr-4 bg-inverse-surface text-inverse-on-surface text-label-sm font-label-sm px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Quick Action</span>
+</button>
+<!-- Secondary FABs (Desktop only visually distinct, mobile integrated into bar) -->
+<button class="w-14 h-14 bg-surface-container-lowest md:bg-surface text-primary rounded-2xl md:rounded-full md:shadow-[0px_2px_8px_rgba(0,0,0,0.08)] border border-outline-variant/30 flex items-center justify-center hover:bg-surface-container-low transition-colors group relative">
+<span class="material-symbols-outlined">search</span>
+<span class="hidden md:block absolute right-full mr-4 bg-inverse-surface text-inverse-on-surface text-label-sm font-label-sm px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Search Globally</span>
+</button>
+</div>
+
+
+</body></html>

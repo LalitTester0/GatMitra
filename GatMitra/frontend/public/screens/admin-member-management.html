@@ -1,0 +1,411 @@
+<!DOCTYPE html><html lang="mr" style="width: 1280px; height: 1088px; overflow: hidden; position: relative;"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Gatmitra - Member Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-container": "#8690ee",
+                      "surface-bright": "#fbf8ff",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-container": "#e17c5a",
+                      "secondary-fixed": "#a3f69c",
+                      "on-tertiary-fixed-variant": "#7b2e12",
+                      "surface-container": "#efecf5",
+                      "surface-tint": "#4c56af",
+                      "on-secondary-fixed-variant": "#005312",
+                      "on-error": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "outline": "#767683",
+                      "on-background": "#1b1b21",
+                      "primary": "#000666",
+                      "surface-container-low": "#f5f2fb",
+                      "secondary": "#1b6d24",
+                      "outline-variant": "#c6c5d4",
+                      "inverse-on-surface": "#f2eff8",
+                      "on-secondary-fixed": "#002204",
+                      "inverse-primary": "#bdc2ff",
+                      "on-surface": "#1b1b21",
+                      "tertiary": "#380b00",
+                      "tertiary-fixed": "#ffdbd0",
+                      "secondary-fixed-dim": "#88d982",
+                      "primary-container": "#1a237e",
+                      "on-secondary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "background": "#fbf8ff",
+                      "inverse-surface": "#303036",
+                      "surface-variant": "#e4e1ea",
+                      "on-surface-variant": "#454652",
+                      "surface-container-highest": "#e4e1ea",
+                      "surface-container-high": "#eae7ef",
+                      "on-primary-fixed": "#000767",
+                      "on-tertiary-fixed": "#390c00",
+                      "secondary-container": "#a0f399",
+                      "error": "#ba1a1a",
+                      "on-secondary-container": "#217128",
+                      "tertiary-fixed-dim": "#ffb59d",
+                      "surface-dim": "#dbd9e1",
+                      "tertiary-container": "#5c1800",
+                      "surface": "#fbf8ff",
+                      "on-primary-fixed-variant": "#343d96",
+                      "primary-fixed-dim": "#bdc2ff",
+                      "primary-fixed": "#e0e0ff",
+                      "on-error-container": "#93000a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "64px",
+                      "gutter": "24px",
+                      "md": "24px",
+                      "lg": "40px",
+                      "sm": "12px",
+                      "base": "8px",
+                      "margin-desktop": "48px",
+                      "margin-mobile": "16px",
+                      "xs": "4px"
+              },
+              "fontFamily": {
+                      "title-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "label-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f5f5f5; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c6c5d4; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopNavBar Implementation -->
+<header class="fixed top-0 w-full z-50 bg-surface-container-lowest dark:bg-surface-container border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none flex items-center justify-between px-md h-xl">
+<div class="flex items-center gap-md">
+<span class="text-title-md font-title-md text-primary dark:text-primary-fixed-dim tracking-tight">Gatmitra</span>
+<div class="hidden md:flex items-center gap-base">
+<nav class="flex gap-md ml-lg">
+<a class="text-on-surface-variant dark:text-on-surface-variant text-label-lg font-label-lg hover:bg-surface-container-low p-2 rounded transition-colors" href="#">Home</a>
+<a class="text-primary dark:text-primary-fixed-dim font-bold border-b-2 border-primary text-label-lg font-label-lg p-2" href="#">Members</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant text-label-lg font-label-lg hover:bg-surface-container-low p-2 rounded transition-colors" href="#">Reports</a>
+</nav>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-label-lg focus:ring-2 focus:ring-primary w-64" placeholder="Search members..." type="text">
+</div>
+<button class="p-2 hover:bg-surface-container-low rounded-full cursor-pointer transition-colors">
+<span class="material-symbols-outlined" data-icon="language">language</span>
+</button>
+<button class="p-2 hover:bg-surface-container-low rounded-full cursor-pointer transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="flex items-center gap-sm ml-base p-1 hover:bg-surface-container-low rounded-lg cursor-pointer transition-colors">
+<img alt="Gatmitra User Profile" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="A professional headshot of a smiling middle-aged Indian man wearing a formal white shirt, set against a clean, soft-focus office background. The lighting is bright and warm, reflecting a corporate and trustworthy atmosphere in a light-mode UI style. The colors are natural, dominated by soft whites and skin tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHymu_EgStxJdsb7VlSflCsFM9vg8ZOGSLEKGxth3soqCkmVgspLXulSLCNpRE24dLiY5wRqJ5b-mYDuWJkKiTIBa7FKoOMAgvKdWa8ZGfo1imaH809TQ1USvaIzxqRFAQfUZ-KLEPkaVuDsUowlweiQKl12SWkfHiE_amMmjgvnudKk7L2aQXhqprhRjwHC9Gw1BT4M2lGj4CrigVkiwvcxjA4_TLnTirzPsrA_SYySK9QNVHQmRU36pE66CJm7k1sIGZNm2yUYYn">
+<span class="hidden md:block text-label-lg font-label-lg text-on-surface">Profile</span>
+</div>
+</div>
+</header>
+<!-- SideNavBar Implementation -->
+<aside class="h-screen w-64 fixed left-0 top-0 hidden md:flex flex-col bg-surface-container-low dark:bg-surface-dim border-r border-outline-variant dark:border-outline shadow-md dark:shadow-none py-md space-y-base overflow-y-auto mt-xl">
+<div class="px-md mb-lg">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<div>
+<h2 class="text-title-md font-title-md text-on-surface leading-tight">Gatmitra Admin</h2>
+<p class="text-xs text-on-surface-variant">Enterprise Finance</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg mx-2 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-body-md font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm bg-primary-container text-on-primary-container rounded-lg mx-2 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-body-md font-body-md">Bachat Gat Management</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg mx-2 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="text-body-md font-body-md">Audit Logs</span>
+</a>
+</nav>
+<div class="pt-base mt-auto border-t border-outline-variant mx-2">
+
+
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-xl min-h-screen">
+<div class="p-gutter max-w-7xl mx-auto">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-md mb-lg">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-xs">Member Management</h1>
+<p class="text-body-md text-on-surface-variant">Manage and audit all members of the Bachat Gat ecosystem.</p>
+</div>
+<button class="bg-primary text-on-primary px-lg py-sm rounded-lg flex items-center gap-base shadow-sm hover:opacity-90 transition-all active:scale-95">
+<span class="material-symbols-outlined">person_add</span>
+<span class="font-bold">Add Member</span>
+</button>
+</div>
+<!-- Dashboard Filters & Search Bento-ish Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-md mb-md">
+<div class="lg:col-span-3 bg-surface-container-lowest p-md rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] flex flex-wrap items-center gap-md">
+<div class="flex-1 min-w-[240px]">
+<label class="block text-label-sm text-on-surface-variant mb-1">Search Member Name or ID</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 border-2 border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-all outline-none" placeholder="e.g. GM-2024-001 or Sunita..." type="text">
+</div>
+</div>
+<div class="min-w-[160px]">
+<label class="block text-label-sm text-on-surface-variant mb-1">Status Filter</label>
+<select class="w-full p-2 border-2 border-outline-variant rounded-lg focus:border-primary focus:ring-0 outline-none">
+<option>All Statuses</option>
+<option>Active</option>
+<option>Inactive</option>
+</select>
+</div>
+<div class="min-w-[160px]">
+<label class="block text-label-sm text-on-surface-variant mb-1">Gender</label>
+<select class="w-full p-2 border-2 border-outline-variant rounded-lg focus:border-primary focus:ring-0 outline-none">
+<option>All</option>
+<option>Female</option>
+<option>Male</option>
+</select>
+</div>
+</div>
+<div class="bg-primary-container text-on-primary-container p-md rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] flex flex-col justify-center">
+<p class="text-label-lg opacity-80">Total Active Members</p>
+<h3 class="text-display-lg font-display-lg">1,248</h3>
+</div>
+</div>
+<!-- Members Table Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.08)] overflow-hidden">
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-md py-md text-label-lg font-bold text-on-surface-variant">Member ID</th>
+<th class="px-md py-md text-label-lg font-bold text-on-surface-variant">Full Name (मराठी/English)</th>
+<th class="px-md py-md text-label-lg font-bold text-on-surface-variant">Mobile Number</th>
+<th class="px-md py-md text-label-lg font-bold text-on-surface-variant">Gender</th>
+<th class="px-md py-md text-label-lg font-bold text-on-surface-variant">Joining Date</th>
+<th class="px-md py-md text-label-lg font-bold text-on-surface-variant">Status</th>
+<th class="px-md py-md text-label-lg font-bold text-on-surface-variant text-center">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-md py-md font-mono text-label-lg">GM-2024-101</td>
+<td class="px-md py-md">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">सुनीता रमेश गायकवाड</span>
+<span class="text-xs text-on-surface-variant">Sunita Ramesh Gaikwad</span>
+</div>
+</td>
+<td class="px-md py-md text-body-md">+91 98220 12345</td>
+<td class="px-md py-md">
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-label-sm">Female</span>
+</td>
+<td class="px-md py-md text-body-md">12 Jan 2024</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-xs text-secondary font-bold">
+<span class="w-2 h-2 bg-secondary rounded-full"></span>
+<span class="text-label-sm">Active</span>
+</div>
+</td>
+<td class="px-md py-md">
+<div class="flex justify-center gap-sm">
+<button class="p-2 text-primary hover:bg-primary-fixed rounded-lg transition-colors" title="View Details">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" title="Edit Member">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-low transition-colors group">
+<td class="px-md py-md font-mono text-label-lg">GM-2024-102</td>
+<td class="px-md py-md">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">आशा दिलीप पाटील</span>
+<span class="text-xs text-on-surface-variant">Asha Dilip Patil</span>
+</div>
+</td>
+<td class="px-md py-md text-body-md">+91 94031 54321</td>
+<td class="px-md py-md">
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-label-sm">Female</span>
+</td>
+<td class="px-md py-md text-body-md">15 Jan 2024</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-xs text-secondary font-bold">
+<span class="w-2 h-2 bg-secondary rounded-full"></span>
+<span class="text-label-sm">Active</span>
+</div>
+</td>
+<td class="px-md py-md">
+<div class="flex justify-center gap-sm">
+<button class="p-2 text-primary hover:bg-primary-fixed rounded-lg transition-colors">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-md py-md font-mono text-label-lg">GM-2024-105</td>
+<td class="px-md py-md">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">मीना विठ्ठल शिंदे</span>
+<span class="text-xs text-on-surface-variant">Meena Vitthal Shinde</span>
+</div>
+</td>
+<td class="px-md py-md text-body-md">+91 88880 00112</td>
+<td class="px-md py-md">
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-label-sm">Female</span>
+</td>
+<td class="px-md py-md text-body-md">02 Feb 2024</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-xs text-error font-bold">
+<span class="w-2 h-2 bg-error rounded-full"></span>
+<span class="text-label-sm">Inactive</span>
+</div>
+</td>
+<td class="px-md py-md">
+<div class="flex justify-center gap-sm">
+<button class="p-2 text-primary hover:bg-primary-fixed rounded-lg transition-colors">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-low transition-colors group">
+<td class="px-md py-md font-mono text-label-lg">GM-2024-110</td>
+<td class="px-md py-md">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">ललिता अशोक काळे</span>
+<span class="text-xs text-on-surface-variant">Lalita Ashok Kale</span>
+</div>
+</td>
+<td class="px-md py-md text-body-md">+91 75071 22334</td>
+<td class="px-md py-md">
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-label-sm">Female</span>
+</td>
+<td class="px-md py-md text-body-md">10 Mar 2024</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-xs text-secondary font-bold">
+<span class="w-2 h-2 bg-secondary rounded-full"></span>
+<span class="text-label-sm">Active</span>
+</div>
+</td>
+<td class="px-md py-md">
+<div class="flex justify-center gap-sm">
+<button class="p-2 text-primary hover:bg-primary-fixed rounded-lg transition-colors">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="px-md py-md border-t border-outline-variant flex items-center justify-between bg-surface-container-low">
+<p class="text-label-sm text-on-surface-variant">Showing 1 to 10 of 1248 members</p>
+<div class="flex gap-xs">
+<button class="px-3 py-1 rounded border border-outline-variant hover:bg-surface-container-high transition-colors">Previous</button>
+<button class="px-3 py-1 rounded bg-primary text-on-primary font-bold">1</button>
+<button class="px-3 py-1 rounded border border-outline-variant hover:bg-surface-container-high transition-colors">2</button>
+<button class="px-3 py-1 rounded border border-outline-variant hover:bg-surface-container-high transition-colors">3</button>
+<button class="px-3 py-1 rounded border border-outline-variant hover:bg-surface-container-high transition-colors">Next</button>
+</div>
+</div>
+</div>
+<!-- Footer Stats / Meta Info -->
+<div class="mt-lg grid grid-cols-1 md:grid-cols-2 gap-md opacity-80 italic">
+<p class="text-label-sm text-on-surface-variant">
+                    * सर्व माहिती 'गटमित्र' प्रणाली द्वारे सुरक्षित करण्यात आली आहे. 
+                </p>
+<p class="text-label-sm text-on-surface-variant md:text-right">
+                    Last updated: 24 Oct 2024, 10:30 AM
+                </p>
+</div>
+</div>
+</main>
+<!-- FAB for Quick Actions (Contextual Mobile Only) -->
+<div class="md:hidden fixed bottom-6 right-6 z-50">
+<button class="w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center active:scale-95 transition-all">
+<span class="material-symbols-outlined">person_add</span>
+</button>
+</div>
+<script>
+        // Micro-interaction for table rows
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('click', (e) => {
+                if(e.target.closest('button')) return;
+                // Simulating navigation to details
+                console.log('Navigating to member detail view...');
+                row.classList.add('bg-primary-fixed');
+                setTimeout(() => row.classList.remove('bg-primary-fixed'), 200);
+            });
+        });
+
+        // Search highlight simulation
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput?.addEventListener('input', (e) => {
+            const val = e.target.value.toLowerCase();
+            document.querySelectorAll('tbody tr').forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(val) ? '' : 'none';
+            });
+        });
+    </script>
+
+
+<div id="snapdom-sandbox" data-snapdom-sandbox="true" aria-hidden="true" style="position: absolute; left: -9999px; top: -9999px; width: 0px; height: 0px; overflow: hidden;"></div></body></html>
