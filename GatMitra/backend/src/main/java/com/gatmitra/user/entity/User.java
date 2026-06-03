@@ -20,23 +20,31 @@ import java.util.Set;
 @AllArgsConstructor
 public class User extends BaseEntity {
 
-    @Column(unique = true, nullable = false)
-    private String username;
+    @Column(name = "mobile_number", length = 15, nullable = false, unique = true)
+    private String mobileNumber;
 
-    @Column(name = "password_hash", nullable = false)
-    private String passwordHash;
+    @Column(name = "full_name", length = 150)
+    private String fullName;
 
-    @Column(name = "phone_number", unique = true, nullable = false)
-    private String phoneNumber;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
 
-    @Column(name = "is_active", nullable = false)
-    private boolean isActive = true;
+    @Column(name = "bachat_gat_id")
+    private java.util.UUID bachatGatId;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "user_roles",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles;
+    @Column(name = "preferred_language", length = 5, nullable = false)
+    private String preferredLanguage = "mr";
+
+    @Column(name = "status", length = 20, nullable = false)
+    private String status = "ACTIVE";
+
+    @Column(name = "last_login_at")
+    private java.time.LocalDateTime lastLoginAt;
+
+    @Column(name = "whatsapp_enabled")
+    private Boolean whatsappEnabled = true;
+
+    @Column(name = "device_id", length = 255)
+    private String deviceId;
 }

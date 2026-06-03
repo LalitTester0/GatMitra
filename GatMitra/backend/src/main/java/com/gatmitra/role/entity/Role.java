@@ -19,10 +19,17 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(unique = true, nullable = false)
-    private String name;
+    @Column(name = "role_name", length = 100, nullable = false)
+    private String roleName;
 
+    @Column(name = "role_code", length = 50, unique = true, nullable = false)
+    private String roleCode;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
+
+    @Column(name = "is_active")
+    private boolean isActive = true;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

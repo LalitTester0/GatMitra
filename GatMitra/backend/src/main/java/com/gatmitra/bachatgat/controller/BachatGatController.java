@@ -20,28 +20,28 @@ public class BachatGatController {
     private BachatGatService bachatGatService;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('READ_BACHATGAT')")
+    @PreAuthorize("hasAnyRole('SUPERADMIN', 'ADMIN', 'MEMBER')")
     public ResponseEntity<ApiResponse<List<BachatGatDto>>> getAll() {
         List<BachatGatDto> list = bachatGatService.getAll();
         return ResponseEntity.ok(ApiResponse.success("Bachat Gats retrieved successfully", list));
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('READ_BACHATGAT')")
+    @PreAuthorize("hasAnyRole('SUPERADMIN', 'ADMIN', 'MEMBER')")
     public ResponseEntity<ApiResponse<BachatGatDto>> getById(@PathVariable UUID id) {
         BachatGatDto dto = bachatGatService.getById(id);
         return ResponseEntity.ok(ApiResponse.success("Bachat Gat details retrieved successfully", dto));
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('CREATE_BACHATGAT')")
+    @PreAuthorize("hasAnyRole('SUPERADMIN', 'ADMIN')")
     public ResponseEntity<ApiResponse<BachatGatDto>> create(@Valid @RequestBody BachatGatDto dto) {
         BachatGatDto created = bachatGatService.create(dto);
         return ResponseEntity.ok(ApiResponse.success("Bachat Gat created successfully", created));
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('UPDATE_BACHATGAT')")
+    @PreAuthorize("hasAnyRole('SUPERADMIN', 'ADMIN')")
     public ResponseEntity<ApiResponse<BachatGatDto>> update(
             @PathVariable UUID id,
             @Valid @RequestBody BachatGatDto dto) {
@@ -50,7 +50,7 @@ public class BachatGatController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('DELETE_BACHATGAT')")
+    @PreAuthorize("hasAnyRole('SUPERADMIN')")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable UUID id) {
         bachatGatService.delete(id);
         return ResponseEntity.ok(ApiResponse.success("Bachat Gat deleted successfully"));

@@ -1,43 +1,50 @@
 package com.gatmitra.security;
 
+import com.gatmitra.member.entity.Member;
 import com.gatmitra.user.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class CustomUserDetails implements UserDetails {
 
-    private final User user;
+    private User user;
+    private Member member;
 
     public CustomUserDetails(User user) {
         this.user = user;
     }
 
+    public CustomUserDetails(Member member) {
+        this.member = member;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoles().stream()
-                .flatMap(role -> {
-                    // Combine role name (e.g. ROLE_SUPER_ADMIN) and individual permissions
-                    var authorities = role.getPermissions().stream()
-                            .map(p -> new SimpleGrantedAuthority(p.getName()))
-                            .collect(Collectors.toList());
-                    authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
-                    return authorities.stream();
-                })
-                .collect(Collectors.toSet());
+        if (user != null) {
+            var authorities = user.getRole().getPermissions().stream()
+                    .map(p -> new SimpleGrantedAuthority(p.getPermissionCode()))
+                    .collect(Collectors.toList());
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().getRoleCode()));
+            return authorities;
+        } else if (member != null) {
+            return List.of(new SimpleGrantedAuthority("ROLE_MEMBER"));
+        }
+        return List.of();
     }
 
     @Override
     public String getPassword() {
-        return user.getPasswordHash();
+        return ""; // Password will be OTP, handled differently
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return user != null ? user.getMobileNumber() : member.getMobileNumber();
     }
 
     @Override
@@ -57,10 +64,19 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.isActive() && !user.isDeleted();
+        if (user != null) {
+            return "ACTIVE".equals(user.getStatus()) && !user.isDeleted();
+        } else if (member != null) {
+            return "ACTIVE".equals(member.getStatus()) && !member.isDeleted();
+        }
+        return false;
     }
 
     public User getUser() {
         return user;
+    }
+
+    public Member getMember() {
+        return member;
     }
 }

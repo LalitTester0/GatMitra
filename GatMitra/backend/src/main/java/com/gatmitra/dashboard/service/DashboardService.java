@@ -6,7 +6,7 @@ import com.gatmitra.dashboard.dto.DashboardStatsDto;
 import com.gatmitra.member.repository.MemberRepository;
 import com.gatmitra.user.repository.UserRepository;
 import com.gatmitra.audit.repository.LoginAuditRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,19 +14,13 @@ import java.math.BigDecimal;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class DashboardService {
 
-    @Autowired
-    private BachatGatRepository bachatGatRepository;
-
-    @Autowired
-    private MemberRepository memberRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private LoginAuditRepository loginAuditRepository;
+    private final BachatGatRepository bachatGatRepository;
+    private final MemberRepository memberRepository;
+    private final UserRepository userRepository;
+    private final LoginAuditRepository loginAuditRepository;
 
     public DashboardStatsDto getSummaryStats() {
         long totalGroups = bachatGatRepository.count();
@@ -35,12 +29,21 @@ public class DashboardService {
 
         // Calculate expected monthly savings sum
         BigDecimal totalExpectedSavings = bachatGatRepository.findAll().stream()
-                .map(BachatGat::getMonthlySavingsAmount)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+                .map(BachatGat::getMonthlyContribution)
+                .reduce(BigDecimal.ZERO, (a, b) -> {
+                    if (a == null && b == null) return BigDecimal.ZERO;
+                    if (a == null) return b;
+                    if (b == null) return a;
+                    return a.add(b);
+                });
+
+        if (totalExpectedSavings == null) {
+            totalExpectedSavings = BigDecimal.ZERO;
+        }
 
         // Fetch audit ratios
         long successfulLogins = loginAuditRepository.findAll().stream()
-                .filter(a -> "SUCCESS".equalsIgnoreCase(a.getStatus()) || "SUCCESS_OTP".equalsIgnoreCase(a.getStatus()))
+                .filter(a -> "SUCCESS".equalsIgnoreCase(a.getLoginStatus()) || "SUCCESS_OTP".equalsIgnoreCase(a.getLoginStatus()))
                 .count();
         long failedLogins = loginAuditRepository.count() - successfulLogins;
 
@@ -49,7 +52,7 @@ public class DashboardService {
                 .totalMembers(totalMembers)
                 .totalSystemUsers(totalUsers)
                 .totalExpectedMonthlySavings(totalExpectedSavings)
-                .pendingNotifications(2) // Mock notifications indicator
+                .pendingNotifications(0)
                 .successfulLoginsCount(successfulLogins)
                 .failedLoginsCount(failedLogins)
                 .build();

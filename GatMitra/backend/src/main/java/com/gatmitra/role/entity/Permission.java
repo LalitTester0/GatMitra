@@ -18,8 +18,12 @@ public class Permission {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(unique = true, nullable = false)
-    private String name;
+    @Column(name = "module_name", length = 100, nullable = false)
+    private String moduleName;
 
-    private String description;
+    @Column(name = "permission_name", length = 100, nullable = false)
+    private String permissionName;
+
+    @Column(name = "permission_code", length = 100, unique = true, nullable = false)
+    private String permissionCode;
 }

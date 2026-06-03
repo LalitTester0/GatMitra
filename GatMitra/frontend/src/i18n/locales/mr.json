@@ -21,7 +21,8 @@
     "phone": "मोबाईल नंबर",
     "username": "वापरकर्तानाव",
     "password": "पासवर्ड",
-    "search": "शोधा..."
+    "search": "शोधा...",
+    "savings": "बचत"
   },
   "auth": {
     "login": "गटमित्र लॉगिन",
@@ -32,7 +33,18 @@
     "loginSuccess": "लॉगिन यशस्वी झाले!",
     "otpSent": "तुमच्या व्हॉट्सॲपवर ओटीपी पाठवला आहे!",
     "useStandard": "वापरकर्तानाव आणि पासवर्ड वापरा",
-    "useOtp": "व्हॉट्सॲप ओटीपी लॉगिन वापरा"
+    "useOtp": "व्हॉट्सॲप ओटीपी लॉगिन वापरा",
+    "welcomeToGatmitra": "गटमित्र मध्ये आपले स्वागत आहे",
+    "enterMobileToAccess": "आपल्या गटात सुरक्षितपणे प्रवेश करण्यासाठी किंवा नवीन गटात सामील होण्यासाठी आपला मोबाईल नंबर प्रविष्ट करा.",
+    "mobileNumber": "मोबाईल नंबर",
+    "tenDigitMobileNumber": "१०-अंकी मोबाईल नंबर",
+    "sendOtp": "ओटीपी पाठवा",
+    "bankEncryption": "२५६-बिट बँक ग्रेड एन्क्रिप्शन",
+    "termsPrefix": "पुढे चालू ठेवून, आपण आमच्या ",
+    "termsOfService": "सेवा अटी",
+    "privacyPolicy": "गोपनीयता धोरण",
+    "termsAnd": " आणि ",
+    "termsSuffix": " याच्याशी सहमत आहात."
   },
   "dashboard": {
     "title": "गटमित्र मुख्य डॅशबोर्ड",
@@ -61,5 +73,23 @@
     "firstName": "पहिले नाव",
     "lastName": "आडनाव",
     "group": "संबंधित बचत गट"
+  },
+  "superadmin": {
+    "title": "सिस्टम कमांड सेंटर",
+    "desc": "उद्यम-व्यापी गटमित्र कामगिरी आणि सुरक्षा मेट्रिक्सचे परीक्षण.",
+    "exportReport": "अहवाल निर्यात करा",
+    "systemHealthCheck": "सिस्टम आरोग्य तपासणी",
+    "totalActiveGroups": "एकूण सक्रिय गट",
+    "totalDeposits": "एकूण ठेवी",
+    "pendingApprovals": "प्रलंबित मंजुरी",
+    "systemHealth": "सिस्टम आरोग्य",
+    "highPriorityActions": "उच्च-प्राधान्य कृती",
+    "viewAll": "सर्व पहा",
+    "networkGrowth": "नेटवर्क वाढ आणि वित्तीय विहंगावलोकन",
+    "systemEvents": "सिस्टम-व्यापी घटना",
+    "recentRegistrations": "अलीकडील नोंदणी",
+    "manageEntities": "संस्था व्यवस्थापित करा",
+    "profileDetails": "प्रोफाइल तपशील",
+    "logout": "बाहेर पडा"
   }
 }

@@ -19,20 +19,18 @@ public class NotificationTemplate {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(unique = true, nullable = false)
-    private String name;
+    @Column(name = "template_key", length = 100, nullable = false)
+    private String templateKey;
 
-    @Column(nullable = false)
-    private String type; // OTP, SYSTEM, TRANSACTION
+    @Column(name = "language_code", length = 5, nullable = false)
+    private String languageCode;
 
-    @Column(name = "template_content", nullable = false, length = 1000)
+    @Column(name = "notification_channel", length = 30)
+    private String notificationChannel;
+
+    @Column(name = "template_content", columnDefinition = "TEXT")
     private String templateContent;
 
-    private String description;
-
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    @Column(name = "is_active")
+    private boolean isActive = true;
 }

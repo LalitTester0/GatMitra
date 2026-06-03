@@ -20,18 +20,41 @@ public class BachatGatDto {
     private UUID id;
 
     @NotBlank(message = "Bachat Gat name is required")
-    private String name;
+    private String groupName;
+
+    private String groupCode;
 
     @NotBlank(message = "Registration number is required")
     private String registrationNumber;
 
-    private LocalDate establishedDate;
+    @NotNull(message = "Establishment date is required")
+    private LocalDate establishmentDate;
 
-    private String description;
+    @NotBlank(message = "Address is required")
+    private String address;
 
-    @NotNull(message = "Monthly savings amount is required")
-    @DecimalMin(value = "0.0", inclusive = false, message = "Monthly savings amount must be greater than 0")
-    private BigDecimal monthlySavingsAmount;
+    @NotBlank(message = "Village is required")
+    private String village;
 
-    private boolean isActive;
+    @NotBlank(message = "Taluka is required")
+    private String taluka;
+
+    @NotBlank(message = "District is required")
+    private String district;
+
+    @NotBlank(message = "State is required")
+    private String state;
+
+    @NotBlank(message = "Pincode is required")
+    private String pincode;
+
+    @NotNull(message = "Monthly contribution amount is required")
+    @DecimalMin(value = "0.0", inclusive = false, message = "Monthly contribution amount must be greater than 0")
+    private BigDecimal monthlyContribution;
+
+    private Integer maxMembers;
+    
+    private String preferredLanguage;
+
+    private String status;
 }

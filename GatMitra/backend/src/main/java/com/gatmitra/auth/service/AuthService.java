@@ -1,109 +1,103 @@
 package com.gatmitra.auth.service;
 
-import com.gatmitra.auth.dto.LoginRequest;
-import com.gatmitra.auth.dto.LoginResponse;
+import com.gatmitra.auth.dto.AuthResponse;
+import com.gatmitra.auth.dto.SendOtpRequest;
+import com.gatmitra.auth.dto.VerifyOtpRequest;
+import com.gatmitra.exception.ResourceNotFoundException;
 import com.gatmitra.audit.service.AuditService;
-import com.gatmitra.exception.BadRequestException;
+import com.gatmitra.member.entity.Member;
+import com.gatmitra.member.repository.MemberRepository;
+import com.gatmitra.notification.service.WhatsAppNotificationService;
 import com.gatmitra.security.CustomUserDetails;
 import com.gatmitra.security.JwtUtil;
 import com.gatmitra.user.entity.User;
 import com.gatmitra.user.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class AuthService {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
+    private final OtpService otpService;
+    private final JwtUtil jwtUtil;
+    private final WhatsAppNotificationService whatsappService;
+    private final AuditService auditService;
 
-    @Autowired
-    private UserRepository userRepository;
+    public void sendOtp(SendOtpRequest request) {
+        String mobileNumber = request.getMobileNumber();
+        Optional<User> userOpt = userRepository.findByMobileNumber(mobileNumber);
+        Optional<Member> memberOpt = memberRepository.findByMobileNumber(mobileNumber);
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+        if (userOpt.isEmpty() && memberOpt.isEmpty()) {
+            throw new ResourceNotFoundException("No account found with mobile number: " + mobileNumber);
+        }
 
-    @Autowired
-    private JwtUtil jwtUtil;
+        if (userOpt.isPresent() && !"ACTIVE".equals(userOpt.get().getStatus())) {
+            throw new IllegalArgumentException("User account is inactive");
+        }
+        
+        if (memberOpt.isPresent() && !"ACTIVE".equals(memberOpt.get().getStatus())) {
+            throw new IllegalArgumentException("Member account is inactive");
+        }
 
-    @Autowired
-    private OtpService otpService;
+        String otp = otpService.generateOtp(mobileNumber);
+        
+        // Send OTP via WhatsApp Cloud API
+        whatsappService.sendOtpMessage(mobileNumber, otp);
+        log.info("OTP generation process completed for {}", mobileNumber);
+    }
 
-    @Autowired
-    private AuditService auditService;
+    public AuthResponse verifyOtp(VerifyOtpRequest request) {
+        String mobileNumber = request.getMobileNumber();
+        // Validate OTP
+        otpService.validateOtp(mobileNumber, request.getOtp());
 
-    public LoginResponse login(LoginRequest request, String ipAddress) {
-        try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
-            );
+        Optional<User> userOpt = userRepository.findByMobileNumber(mobileNumber);
+        Optional<Member> memberOpt = memberRepository.findByMobileNumber(mobileNumber);
 
-            CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-            User user = userDetails.getUser();
+        CustomUserDetails userDetails;
+        String token;
+        AuthResponse response;
 
-            String token = jwtUtil.generateToken(userDetails);
-            
-            // Log successful login
-            auditService.logLogin(user.getUsername(), ipAddress, "SUCCESS", null);
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            userDetails = new CustomUserDetails(user);
+            token = jwtUtil.generateToken(userDetails);
+            auditService.logLogin(user.getId(), "SUCCESS");
 
-            return LoginResponse.builder()
+            response = AuthResponse.builder()
                     .token(token)
-                    .refreshToken("refresh-token-placeholder") // Standard placeholder
-                    .user(LoginResponse.UserDetailsDto.builder()
-                            .id(user.getId())
-                            .username(user.getUsername())
-                            .phoneNumber(user.getPhoneNumber())
-                            .roles(user.getRoles().stream().map(r -> r.getName()).collect(Collectors.toList()))
-                            .build())
+                    .userId(user.getId())
+                    .mobileNumber(user.getMobileNumber())
+                    .firstName(user.getFullName())
+                    .lastName("")
+                    .role(user.getRole() != null ? user.getRole().getRoleCode() : null)
                     .build();
-        } catch (Exception e) {
-            // Log failed login
-            auditService.logLogin(request.getUsername(), ipAddress, "FAILURE", e.getMessage());
-            throw e;
-        }
-    }
+        } else if (memberOpt.isPresent()) {
+            Member member = memberOpt.get();
+            userDetails = new CustomUserDetails(member);
+            token = jwtUtil.generateToken(userDetails);
+            auditService.logLogin(member.getId(), "SUCCESS");
 
-    public void requestOtp(String phoneNumber) {
-        User user = userRepository.findByPhoneNumber(phoneNumber)
-                .orElseThrow(() -> new BadRequestException("No user is registered with this phone number."));
-
-        if (!user.isActive()) {
-            throw new BadRequestException("User account is inactive.");
-        }
-
-        otpService.generateAndSendOtp(phoneNumber);
-    }
-
-    public LoginResponse verifyOtp(String phoneNumber, String code, String ipAddress) {
-        User user = userRepository.findByPhoneNumber(phoneNumber)
-                .orElseThrow(() -> new BadRequestException("User not found with phone number: " + phoneNumber));
-
-        boolean isVerified = otpService.verifyOtp(phoneNumber, code);
-        if (!isVerified) {
-            auditService.logLogin(user.getUsername(), ipAddress, "FAILURE_OTP", "Invalid or expired OTP");
-            throw new BadRequestException("Invalid or expired OTP code.");
+            response = AuthResponse.builder()
+                    .token(token)
+                    .userId(member.getId())
+                    .mobileNumber(member.getMobileNumber())
+                    .firstName(member.getFullName())
+                    .lastName("")
+                    .role("MEMBER")
+                    .build();
+        } else {
+            throw new ResourceNotFoundException("No account found with mobile number: " + mobileNumber);
         }
 
-        CustomUserDetails userDetails = new CustomUserDetails(user);
-        String token = jwtUtil.generateToken(userDetails);
-
-        auditService.logLogin(user.getUsername(), ipAddress, "SUCCESS_OTP", null);
-
-        return LoginResponse.builder()
-                .token(token)
-                .refreshToken("refresh-token-placeholder")
-                .user(LoginResponse.UserDetailsDto.builder()
-                        .id(user.getId())
-                        .username(user.getUsername())
-                        .phoneNumber(user.getPhoneNumber())
-                        .roles(user.getRoles().stream().map(r -> r.getName()).collect(Collectors.toList()))
-                        .build())
-                .build();
+        return response;
     }
 }

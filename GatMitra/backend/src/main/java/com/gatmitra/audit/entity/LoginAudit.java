@@ -19,18 +19,21 @@ public class LoginAudit {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false)
-    private String username;
+    @Column(name = "user_id")
+    private UUID userId;
 
-    @Column(name = "ip_address")
+    @Column(name = "login_time")
+    private LocalDateTime loginTime;
+
+    @Column(name = "logout_time")
+    private LocalDateTime logoutTime;
+
+    @Column(name = "ip_address", length = 100)
     private String ipAddress;
 
-    @Column(name = "login_time", nullable = false)
-    private LocalDateTime loginTime = LocalDateTime.now();
+    @Column(name = "device_details", columnDefinition = "TEXT")
+    private String deviceDetails;
 
-    @Column(nullable = false)
-    private String status; // SUCCESS, FAILURE
-
-    @Column(name = "failure_reason")
-    private String failureReason;
+    @Column(name = "login_status", length = 20)
+    private String loginStatus;
 }

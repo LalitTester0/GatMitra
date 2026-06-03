@@ -9,5 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface NotificationTemplateRepository extends JpaRepository<NotificationTemplate, UUID> {
-    Optional<NotificationTemplate> findByName(String name);
+    Optional<NotificationTemplate> findByTemplateKey(String templateKey);
 }

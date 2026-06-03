@@ -19,21 +19,27 @@ public class NotificationLog {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false)
-    private String recipient;
+    @Column(name = "user_id")
+    private UUID userId;
 
-    @Column(nullable = false)
-    private String type; // WHATSAPP, SMS, EMAIL
+    @Column(name = "recipient_mobile_number", length = 15)
+    private String recipientMobileNumber;
 
-    @Column(nullable = false, length = 1000)
-    private String content;
+    @Column(name = "notification_type", length = 50)
+    private String notificationType;
 
-    @Column(nullable = false)
-    private String status = "PENDING"; // SENT, FAILED, PENDING
+    @Column(length = 30)
+    private String channel;
+
+    @Column(columnDefinition = "TEXT")
+    private String message;
+
+    @Column(name = "delivery_status", length = 20)
+    private String deliveryStatus;
+
+    @Column(name = "response_payload", columnDefinition = "TEXT")
+    private String responsePayload;
 
     @Column(name = "sent_at")
     private LocalDateTime sentAt = LocalDateTime.now();
-
-    @Column(name = "error_message")
-    private String errorMessage;
 }

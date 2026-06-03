@@ -1,9 +1,9 @@
 package com.gatmitra.dashboard.controller;
 
+import com.gatmitra.common.ApiResponse;
 import com.gatmitra.dashboard.dto.DashboardStatsDto;
 import com.gatmitra.dashboard.service.DashboardService;
-import com.gatmitra.common.ApiResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/dashboard")
+@RequiredArgsConstructor
 public class DashboardController {
 
-    @Autowired
-    private DashboardService dashboardService;
+    private final DashboardService dashboardService;
 
     @GetMapping("/stats")
-    @PreAuthorize("hasAuthority('READ_DASHBOARD')")
+    @PreAuthorize("hasAnyRole('SUPERADMIN', 'ADMIN')")
     public ResponseEntity<ApiResponse<DashboardStatsDto>> getStats() {
         DashboardStatsDto stats = dashboardService.getSummaryStats();
         return ResponseEntity.ok(ApiResponse.success("Dashboard statistics loaded successfully", stats));

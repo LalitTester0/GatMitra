@@ -1,45 +1,34 @@
 package com.gatmitra.auth.controller;
 
-import com.gatmitra.auth.dto.LoginRequest;
-import com.gatmitra.auth.dto.LoginResponse;
-import com.gatmitra.auth.dto.OtpRequest;
+import com.gatmitra.auth.dto.AuthResponse;
+import com.gatmitra.auth.dto.SendOtpRequest;
+import com.gatmitra.auth.dto.VerifyOtpRequest;
 import com.gatmitra.auth.service.AuthService;
 import com.gatmitra.common.ApiResponse;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
 
-    @PostMapping("/login")
-    public ResponseEntity<ApiResponse<LoginResponse>> login(
-            @Valid @RequestBody LoginRequest request,
-            HttpServletRequest httpServletRequest) {
-        String ipAddress = httpServletRequest.getRemoteAddr();
-        LoginResponse response = authService.login(request, ipAddress);
-        return ResponseEntity.ok(ApiResponse.success("Login successful", response));
+    @PostMapping("/send-otp")
+    public ResponseEntity<ApiResponse<String>> sendOtp(@Valid @RequestBody SendOtpRequest request) {
+        authService.sendOtp(request);
+        return ResponseEntity.ok(ApiResponse.success("OTP sent successfully to WhatsApp.", null));
     }
 
-    @PostMapping("/otp/request")
-    public ResponseEntity<ApiResponse<String>> requestOtp(
-            @Valid @RequestBody OtpRequest.Request request) {
-        authService.requestOtp(request.getPhoneNumber());
-        return ResponseEntity.ok(ApiResponse.success("OTP has been sent to your WhatsApp number"));
-    }
-
-    @PostMapping("/otp/verify")
-    public ResponseEntity<ApiResponse<LoginResponse>> verifyOtp(
-            @Valid @RequestBody OtpRequest.Verify request,
-            HttpServletRequest httpServletRequest) {
-        String ipAddress = httpServletRequest.getRemoteAddr();
-        LoginResponse response = authService.verifyOtp(request.getPhoneNumber(), request.getCode(), ipAddress);
-        return ResponseEntity.ok(ApiResponse.success("OTP verification successful", response));
+    @PostMapping("/verify-otp")
+    public ResponseEntity<ApiResponse<AuthResponse>> verifyOtp(@Valid @RequestBody VerifyOtpRequest request) {
+        AuthResponse response = authService.verifyOtp(request);
+        return ResponseEntity.ok(ApiResponse.success("OTP verified successfully", response));
     }
 }

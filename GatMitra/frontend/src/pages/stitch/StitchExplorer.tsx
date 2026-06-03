@@ -9,6 +9,28 @@ import {
   Layers
 } from 'lucide-react';
 
+// Import all screen components for native rendering
+import { Login } from '../auth/Login';
+import { OtpSuccess } from '../auth/OtpSuccess';
+import { AdminDashboard } from '../dashboard/AdminDashboard';
+import { MemberList } from '../member/MemberList';
+import { AddMember } from '../member/AddMember';
+import { MemberDetails } from '../member/MemberDetails';
+import { MemberStatusDrawer } from '../member/MemberStatusDrawer';
+import { BachatGatList } from '../bachatgat/BachatGatList';
+import { AddBachatGat } from '../bachatgat/AddBachatGat';
+import { EditBachatGat } from '../bachatgat/EditBachatGat';
+import { BachatGatDetails } from '../bachatgat/BachatGatDetails';
+import { AuditLogList } from '../audit/AuditLogList';
+import { MemberDashboard } from '../dashboard/MemberDashboard';
+import { SuperAdminDashboard } from '../dashboard/SuperAdminDashboard';
+import { SuperAdminNotifications } from '../notifications/SuperAdminNotifications';
+import { SuperAdminAudits } from '../audit/SuperAdminAudits';
+import { Notifications } from '../notifications/Notifications';
+import { Unauthorized } from '../error/Unauthorized';
+import { Deactivated } from '../error/Deactivated';
+import { SessionExpired } from '../error/SessionExpired';
+
 export interface StitchScreen {
   id: string;
   path: string;
@@ -160,6 +182,30 @@ export const STITCH_SCREENS: StitchScreen[] = [
   }
 ];
 
+// Map paths to their actual React elements
+const screenComponentMap: { [key: string]: React.ReactNode } = {
+  "login": <Login />,
+  "otp-success": <OtpSuccess />,
+  "admin-dashboard": <AdminDashboard />,
+  "admin-member-management": <MemberList />,
+  "add-member": <AddMember />,
+  "member-details": <MemberDetails />,
+  "member-status-drawer": <MemberStatusDrawer />,
+  "bachatgat-management": <BachatGatList />,
+  "add-bachatgat": <AddBachatGat />,
+  "edit-bachatgat": <EditBachatGat />,
+  "bachatgat-details": <BachatGatDetails />,
+  "admin-audits": <AuditLogList />,
+  "member-dashboard": <MemberDashboard />,
+  "superadmin-dashboard": <SuperAdminDashboard />,
+  "superadmin-notifications": <SuperAdminNotifications />,
+  "superadmin-audits": <SuperAdminAudits />,
+  "notifications": <Notifications />,
+  "unauthorized": <Unauthorized />,
+  "deactivated": <Deactivated />,
+  "session-expired": <SessionExpired />
+};
+
 export const StitchExplorer: React.FC = () => {
   const { screenPath } = useParams<{ screenPath?: string }>();
   const navigate = useNavigate();
@@ -171,17 +217,16 @@ export const StitchExplorer: React.FC = () => {
     navigate(`/stitch/${path}`);
   };
 
-  // Full Screen isolated iframe render check
+  // Full Screen isolated native render check
   const isFullScreen = window.location.search.includes('fullscreen=true');
 
   if (isFullScreen) {
     return (
-      <iframe 
-        src={currentScreen.url} 
-        className="fixed inset-0 w-screen h-screen border-none bg-white z-50"
-        title={currentScreen.title}
-        sandbox="allow-scripts allow-same-origin allow-forms"
-      />
+      <div className="fixed inset-0 w-screen h-screen bg-white z-50 overflow-auto">
+        {screenComponentMap[currentScreen.path] || (
+          <div className="p-8 text-center text-slate-400">Component not implemented</div>
+        )}
+      </div>
     );
   }
 
@@ -211,7 +256,7 @@ export const StitchExplorer: React.FC = () => {
             className="w-full flex items-center gap-2 py-2 px-3 bg-slate-900/60 border border-slate-800 hover:bg-slate-850/80 text-xs font-semibold text-slate-300 rounded-xl transition"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
-            <span>Return to GatMitra Admin</span>
+            <span>Return to GatMitra Central</span>
           </button>
         </div>
 
@@ -264,9 +309,9 @@ export const StitchExplorer: React.FC = () => {
           </div>
         </header>
 
-        {/* Dynamic iframe viewer inside desktop device framing */}
+        {/* Dynamic component viewer inside desktop device framing */}
         <div className="flex-1 p-6 flex items-center justify-center bg-[#05070c] overflow-y-auto">
-          <div className="w-full h-full max-w-6xl max-h-[85vh] bg-[#0d131f] rounded-2xl border border-slate-800 shadow-2xl flex flex-col overflow-hidden">
+          <div className="w-full h-full max-w-6xl max-h-[85vh] bg-white rounded-2xl border border-slate-800 shadow-2xl flex flex-col overflow-hidden">
             {/* Browser top MockBar */}
             <div className="h-9 bg-slate-900 border-b border-slate-800/60 px-4 flex items-center gap-2 shrink-0">
               <div className="flex gap-1.5">
@@ -281,13 +326,13 @@ export const StitchExplorer: React.FC = () => {
                 </div>
               </div>
             </div>
-            {/* Embedded Screen iFrame */}
-            <iframe 
-              src={currentScreen.url} 
-              className="flex-1 w-full bg-white border-none"
-              title={currentScreen.title}
-              sandbox="allow-scripts allow-same-origin allow-forms"
-            />
+            
+            {/* Embedded Native React Component Container */}
+            <div className="flex-1 w-full overflow-auto relative bg-[#F5F5F5]">
+              {screenComponentMap[currentScreen.path] || (
+                <div className="p-8 text-center text-slate-400">Component not implemented</div>
+              )}
+            </div>
           </div>
         </div>
       </main>

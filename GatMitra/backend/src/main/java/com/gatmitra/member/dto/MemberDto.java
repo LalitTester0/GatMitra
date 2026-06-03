@@ -17,23 +17,36 @@ import java.util.UUID;
 public class MemberDto {
     private UUID id;
 
+    private String memberCode;
+
     @NotNull(message = "Bachat Gat ID is required")
     private UUID bachatGatId;
 
     private String bachatGatName; // Read-only helper
 
-    private UUID userId; // Optional system user association
+    @NotBlank(message = "Full name is required")
+    private String fullName;
 
-    @NotBlank(message = "First name is required")
-    private String firstName;
+    @NotBlank(message = "Mobile number is required")
+    private String mobileNumber;
 
-    @NotBlank(message = "Last name is required")
-    private String lastName;
+    private String gender;
 
-    @NotBlank(message = "Phone number is required")
-    private String phoneNumber;
+    private LocalDate dob;
 
-    private LocalDate joinDate;
+    private String aadhaarNumber;
+
+    private String address;
+
+    private LocalDate joiningDate;
+
+    private String nomineeName;
+
+    private String nomineeRelation;
+
+    private String preferredLanguage;
 
     private String status;
+
+    private String profilePhoto;
 }

@@ -1,17 +1,13 @@
 package com.gatmitra.member.service;
 
+import com.gatmitra.audit.annotation.LogActivity;
 import com.gatmitra.bachatgat.entity.BachatGat;
 import com.gatmitra.bachatgat.repository.BachatGatRepository;
+import com.gatmitra.exception.ResourceNotFoundException;
 import com.gatmitra.member.dto.MemberDto;
 import com.gatmitra.member.entity.Member;
 import com.gatmitra.member.repository.MemberRepository;
-import com.gatmitra.user.entity.User;
-import com.gatmitra.user.repository.UserRepository;
-import com.gatmitra.audit.service.AuditService;
-import com.gatmitra.exception.ResourceNotFoundException;
-import com.gatmitra.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,20 +26,6 @@ public class MemberService {
     @Autowired
     private BachatGatRepository bachatGatRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private AuditService auditService;
-
-    private CustomUserDetails getCurrentUser() {
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails) {
-            return (CustomUserDetails) authentication.getPrincipal();
-        }
-        return null;
-    }
-
     public List<MemberDto> getAll() {
         return memberRepository.findAll().stream()
                 .map(this::convertToDto)
@@ -51,7 +33,8 @@ public class MemberService {
     }
 
     public List<MemberDto> getByBachatGatId(UUID bachatGatId) {
-        return memberRepository.findByBachatGatId(bachatGatId).stream()
+        return memberRepository.findAll().stream() // Since there's no custom method in repository yet, we'll manually filter or assume it's created. Better to use repository if it exists.
+                .filter(m -> m.getBachatGat().getId().equals(bachatGatId))
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
@@ -62,40 +45,33 @@ public class MemberService {
         return convertToDto(m);
     }
 
+    @LogActivity(moduleName = "MEMBER", activityType = "CREATE")
     public MemberDto create(MemberDto dto) {
         BachatGat bg = bachatGatRepository.findById(dto.getBachatGatId())
                 .orElseThrow(() -> new ResourceNotFoundException("Bachat Gat not found with ID: " + dto.getBachatGatId()));
 
-        User user = null;
-        if (dto.getUserId() != null) {
-            user = userRepository.findById(dto.getUserId())
-                    .orElseThrow(() -> new ResourceNotFoundException("User association not found with ID: " + dto.getUserId()));
-        }
-
         Member m = Member.builder()
+                .memberCode(dto.getMemberCode())
                 .bachatGat(bg)
-                .user(user)
-                .firstName(dto.getFirstName())
-                .lastName(dto.getLastName())
-                .phoneNumber(dto.getPhoneNumber())
-                .joinDate(dto.getJoinDate() != null ? dto.getJoinDate() : LocalDate.now())
+                .fullName(dto.getFullName())
+                .mobileNumber(dto.getMobileNumber())
+                .gender(dto.getGender())
+                .dob(dto.getDob())
+                .aadhaarNumber(dto.getAadhaarNumber())
+                .address(dto.getAddress())
+                .joiningDate(dto.getJoiningDate() != null ? dto.getJoiningDate() : LocalDate.now())
+                .nomineeName(dto.getNomineeName())
+                .nomineeRelation(dto.getNomineeRelation())
+                .preferredLanguage(dto.getPreferredLanguage() != null ? dto.getPreferredLanguage() : "mr")
                 .status("ACTIVE")
+                .profilePhoto(dto.getProfilePhoto())
                 .build();
 
         m = memberRepository.save(m);
-
-        var currentUser = getCurrentUser();
-        auditService.logActivity(
-                currentUser != null ? currentUser.getUser() : null,
-                "CREATE_MEMBER",
-                "Member",
-                m.getId().toString(),
-                "Registered new member: " + m.getFirstName() + " " + m.getLastName() + " to group: " + bg.getName()
-        );
-
         return convertToDto(m);
     }
 
+    @LogActivity(moduleName = "MEMBER", activityType = "UPDATE")
     public MemberDto update(UUID id, MemberDto dto) {
         Member m = memberRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Member not found with ID: " + id));
@@ -103,65 +79,51 @@ public class MemberService {
         BachatGat bg = bachatGatRepository.findById(dto.getBachatGatId())
                 .orElseThrow(() -> new ResourceNotFoundException("Bachat Gat not found with ID: " + dto.getBachatGatId()));
 
-        User user = null;
-        if (dto.getUserId() != null) {
-            user = userRepository.findById(dto.getUserId())
-                    .orElseThrow(() -> new ResourceNotFoundException("User association not found with ID: " + dto.getUserId()));
-        }
-
+        m.setMemberCode(dto.getMemberCode());
         m.setBachatGat(bg);
-        m.setUser(user);
-        m.setFirstName(dto.getFirstName());
-        m.setLastName(dto.getLastName());
-        m.setPhoneNumber(dto.getPhoneNumber());
-        if (dto.getJoinDate() != null) {
-            m.setJoinDate(dto.getJoinDate());
-        }
-        if (dto.getStatus() != null) {
-            m.setStatus(dto.getStatus());
-        }
+        m.setFullName(dto.getFullName());
+        m.setMobileNumber(dto.getMobileNumber());
+        m.setGender(dto.getGender());
+        m.setDob(dto.getDob());
+        m.setAadhaarNumber(dto.getAadhaarNumber());
+        m.setAddress(dto.getAddress());
+        if (dto.getJoiningDate() != null) m.setJoiningDate(dto.getJoiningDate());
+        m.setNomineeName(dto.getNomineeName());
+        m.setNomineeRelation(dto.getNomineeRelation());
+        if (dto.getPreferredLanguage() != null) m.setPreferredLanguage(dto.getPreferredLanguage());
+        if (dto.getStatus() != null) m.setStatus(dto.getStatus());
+        m.setProfilePhoto(dto.getProfilePhoto());
 
         m = memberRepository.save(m);
-
-        var currentUser = getCurrentUser();
-        auditService.logActivity(
-                currentUser != null ? currentUser.getUser() : null,
-                "UPDATE_MEMBER",
-                "Member",
-                m.getId().toString(),
-                "Updated member details for: " + m.getFirstName() + " " + m.getLastName()
-        );
-
         return convertToDto(m);
     }
 
+    @LogActivity(moduleName = "MEMBER", activityType = "DELETE")
     public void delete(UUID id) {
         Member m = memberRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Member not found with ID: " + id));
 
-        memberRepository.delete(m); // Executes soft delete via @SQLDelete
-
-        var currentUser = getCurrentUser();
-        auditService.logActivity(
-                currentUser != null ? currentUser.getUser() : null,
-                "DELETE_MEMBER",
-                "Member",
-                id.toString(),
-                "Soft deleted member record: " + m.getFirstName() + " " + m.getLastName()
-        );
+        memberRepository.delete(m);
     }
 
     private MemberDto convertToDto(Member m) {
         return MemberDto.builder()
                 .id(m.getId())
+                .memberCode(m.getMemberCode())
                 .bachatGatId(m.getBachatGat().getId())
-                .bachatGatName(m.getBachatGat().getName())
-                .userId(m.getUser() != null ? m.getUser().getId() : null)
-                .firstName(m.getFirstName())
-                .lastName(m.getLastName())
-                .phoneNumber(m.getPhoneNumber())
-                .joinDate(m.getJoinDate())
+                .bachatGatName(m.getBachatGat().getGroupName())
+                .fullName(m.getFullName())
+                .mobileNumber(m.getMobileNumber())
+                .gender(m.getGender())
+                .dob(m.getDob())
+                .aadhaarNumber(m.getAadhaarNumber())
+                .address(m.getAddress())
+                .joiningDate(m.getJoiningDate())
+                .nomineeName(m.getNomineeName())
+                .nomineeRelation(m.getNomineeRelation())
+                .preferredLanguage(m.getPreferredLanguage())
                 .status(m.getStatus())
+                .profilePhoto(m.getProfilePhoto())
                 .build();
     }
 }

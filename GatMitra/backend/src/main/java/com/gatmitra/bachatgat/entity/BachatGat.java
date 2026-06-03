@@ -22,21 +22,54 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class BachatGat extends BaseEntity {
 
-    @Column(nullable = false)
-    private String name;
+    @Column(name = "group_code", length = 30, unique = true)
+    private String groupCode;
 
-    @Column(name = "registration_number", unique = true, nullable = false)
+    @Column(name = "group_name", length = 255, nullable = false)
+    private String groupName;
+
+    @Column(name = "registration_number", length = 100, unique = true)
     private String registrationNumber;
 
-    @Column(name = "established_date")
-    private LocalDate establishedDate;
+    @Column(name = "establishment_date", nullable = false)
+    private LocalDate establishmentDate;
 
-    @Column(columnDefinition = "TEXT")
-    private String description;
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String address;
 
-    @Column(name = "monthly_savings_amount", nullable = false)
-    private BigDecimal monthlySavingsAmount = BigDecimal.ZERO;
+    @Column(length = 150, nullable = false)
+    private String village;
 
-    @Column(name = "is_active", nullable = false)
-    private boolean isActive = true;
+    @Column(length = 150, nullable = false)
+    private String taluka;
+
+    @Column(length = 150, nullable = false)
+    private String district;
+
+    @Column(length = 100, nullable = false)
+    private String state;
+
+    @Column(length = 10, nullable = false)
+    private String pincode;
+
+    @Column(name = "monthly_contribution")
+    private BigDecimal monthlyContribution;
+
+    @Column(name = "max_members")
+    private Integer maxMembers;
+
+    @Column(name = "admin_user_id")
+    private java.util.UUID adminUserId;
+
+    @Column(name = "preferred_language", length = 5, nullable = false)
+    private String preferredLanguage = "mr";
+
+    @Column(length = 20, nullable = false)
+    private String status = "ACTIVE";
+
+    @Column(name = "deactivation_reason", columnDefinition = "TEXT")
+    private String deactivationReason;
+
+    @Column(name = "deactivated_at")
+    private java.time.LocalDateTime deactivatedAt;
 }

@@ -21,26 +21,45 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Member extends BaseEntity {
 
+    @Column(name = "member_code", length = 30)
+    private String memberCode;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bachat_gat_id", nullable = false)
     private BachatGat bachatGat;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(name = "full_name", length = 150)
+    private String fullName;
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
+    @Column(name = "mobile_number", length = 15)
+    private String mobileNumber;
 
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
+    @Column(length = 20)
+    private String gender;
 
-    @Column(name = "phone_number", nullable = false)
-    private String phoneNumber;
+    private LocalDate dob;
 
-    @Column(name = "join_date", nullable = false)
-    private LocalDate joinDate = LocalDate.now();
+    @Column(name = "aadhaar_number", length = 20)
+    private String aadhaarNumber;
 
-    @Column(nullable = false)
-    private String status = "ACTIVE"; // ACTIVE, INACTIVE
+    @Column(columnDefinition = "TEXT")
+    private String address;
+
+    @Column(name = "joining_date")
+    private LocalDate joiningDate;
+
+    @Column(name = "nominee_name", length = 150)
+    private String nomineeName;
+
+    @Column(name = "nominee_relation", length = 100)
+    private String nomineeRelation;
+
+    @Column(name = "preferred_language", length = 5)
+    private String preferredLanguage = "mr";
+
+    @Column(length = 20)
+    private String status = "ACTIVE";
+
+    @Column(name = "profile_photo", columnDefinition = "TEXT")
+    private String profilePhoto;
 }

@@ -3,15 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { authApi } from '../../services/api';
 import { useTranslation } from 'react-i18next';
-import { KeyRound, Phone, ShieldCheck, MessageSquare, Landmark, Globe } from 'lucide-react';
+import { KeyRound, ShieldCheck, ArrowRight, Lock } from 'lucide-react';
 
 export const Login: React.FC = () => {
   const { login } = useAuth();
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
-  // Switch between 'password' and 'otp' modes
-  const [authMode, setAuthMode] = useState<'password' | 'otp'>('password');
+  // Switch between 'otp' and 'password' modes (default to 'otp' to match Stitch)
+  const [authMode, setAuthMode] = useState<'otp' | 'password'>('otp');
   
   // Fields state
   const [username, setUsername] = useState('');
@@ -25,6 +25,11 @@ export const Login: React.FC = () => {
   const [infoMsg, setInfoMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+    localStorage.setItem('i18nextLng', lng);
+  };
+
   const handleStandardSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
@@ -34,9 +39,15 @@ export const Login: React.FC = () => {
     try {
       const response = await authApi.login({ username, password });
       if (response.data.success) {
-        const { token, user } = response.data.data;
-        login(token, user);
-        navigate('/dashboard');
+        const authData = response.data.data;
+        login(authData.token, authData);
+        if (authData.role === 'SUPERADMIN') {
+          navigate('/superadmin/dashboard');
+        } else if (authData.role === 'MEMBER') {
+          navigate('/member/dashboard');
+        } else {
+          navigate('/dashboard');
+        }
       }
     } catch (err: any) {
       setErrorMsg(err.response?.data?.message || 'Login failed. Please verify credentials.');
@@ -71,9 +82,15 @@ export const Login: React.FC = () => {
     try {
       const response = await authApi.verifyOtp(phoneNumber, otpCode);
       if (response.data.success) {
-        const { token, user } = response.data.data;
-        login(token, user);
-        navigate('/dashboard');
+        const authData = response.data.data;
+        login(authData.token, authData);
+        if (authData.role === 'SUPERADMIN') {
+          navigate('/superadmin/dashboard');
+        } else if (authData.role === 'MEMBER') {
+          navigate('/member/dashboard');
+        } else {
+          navigate('/dashboard');
+        }
       }
     } catch (err: any) {
       setErrorMsg(err.response?.data?.message || 'Invalid or expired OTP code.');
@@ -83,187 +100,263 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-[#070c14] relative p-4 overflow-hidden">
-      {/* Visual background decorations */}
-      <div className="absolute top-[-150px] left-[-150px] w-96 h-96 bg-brand-500/10 rounded-full blur-[100px] pointer-events-none"></div>
-      <div className="absolute bottom-[-150px] right-[-150px] w-96 h-96 bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-      {/* Global Lang Select top right */}
-      <div className="absolute top-6 right-6 flex items-center gap-1.5 bg-slate-900/80 border border-slate-800 rounded-xl px-3 py-2 text-xs">
-        <Globe className="h-3.5 w-3.5 text-brand-400" />
-        <select 
-          value={i18n.language} 
-          onChange={(e) => { i18n.changeLanguage(e.target.value); localStorage.setItem('i18nextLng', e.target.value); }}
-          className="bg-transparent border-none text-slate-300 focus:outline-none cursor-pointer"
-        >
-          <option value="en" className="bg-[#0b0f19]">English</option>
-          <option value="mr" className="bg-[#0b0f19]">मराठी</option>
-          <option value="hi" className="bg-[#0b0f19]">हिंदी</option>
-        </select>
-      </div>
-
-      <div className="w-full max-w-md glass-panel p-8 rounded-2xl shadow-2xl relative z-10 border border-white/5">
-        <div className="text-center mb-6">
-          <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-500 mb-4 shadow-xl shadow-brand-500/10">
-            <Landmark className="h-6 w-6 text-white" />
-          </div>
-          <h2 className="text-2xl font-extrabold tracking-tight gradient-text">{t('auth.login')}</h2>
-          <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-            {t('auth.enterDetails')}
-          </p>
+    <div className="bg-background text-on-background min-h-screen flex flex-col font-body-md antialiased relative overflow-hidden">
+      {/* TopAppBar */}
+      <header className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-margin-mobile md:px-margin-desktop h-20 bg-transparent">
+        <div className="flex items-center">
+          <img 
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQb0DvB5zO0bR00VGze-cxroJgflWWJ6PPM2yRsmjtoI9_XsXxlzROYaF5FLkTwOjlh7I75jlyuyqq_QtoftQNhkmn7c-HTcnGF2pyeV29kTy7_FLEQzh9igNKjlyBiB0yTlPyff1DgZsAqNCBd-tTZ-nrro8Zc6nM2jtmtEAWEDruoE3xDi15eQNaifaVRdhtxG68NQDDb6aeQE4yr08AOQ1YDYsksOsQ7bbSza9Npw2mVdRskSpA2gv0kSWPjdLKnlCGtYgUhSso" 
+            alt="Gatmitra Logo" 
+            className="h-10 w-auto object-contain"
+          />
         </div>
-
-        {/* Notices */}
-        {errorMsg && (
-          <div className="mb-4 p-3 bg-red-950/40 border border-red-500/30 text-red-300 rounded-xl text-xs text-center">
-            {errorMsg}
-          </div>
-        )}
-        {infoMsg && (
-          <div className="mb-4 p-3 bg-brand-950/40 border border-brand-500/30 text-brand-300 rounded-xl text-xs text-center">
-            {infoMsg}
-          </div>
-        )}
-
-        {/* Selector Toggle */}
-        <div className="flex bg-slate-900/60 p-1 rounded-xl border border-slate-800 mb-6">
-          <button
-            onClick={() => { setAuthMode('password'); setErrorMsg(''); }}
-            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-semibold transition-all ${
-              authMode === 'password' 
-                ? 'bg-gradient-to-r from-brand-600 to-brand-500 text-white shadow-md' 
-                : 'text-slate-400 hover:text-slate-200'
+        {/* Language Toggle */}
+        <div className="flex items-center bg-white/95 backdrop-blur-sm rounded-full p-[3px] border border-[#e1e1f0] shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
+          <button 
+            type="button"
+            onClick={() => changeLanguage('en')}
+            className={`px-4 py-1.5 rounded-full font-semibold text-xs transition-all duration-200 ${
+              i18n.language === 'en' ? 'bg-[#00085a] text-white shadow-sm' : 'text-[#33334d] hover:bg-gray-100/60'
             }`}
           >
-            <KeyRound className="h-3.5 w-3.5" />
-            <span>Standard</span>
+            EN
           </button>
-          <button
-            onClick={() => { setAuthMode('otp'); setErrorMsg(''); }}
-            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-semibold transition-all ${
-              authMode === 'otp' 
-                ? 'bg-gradient-to-r from-brand-600 to-brand-500 text-white shadow-md' 
-                : 'text-slate-400 hover:text-slate-200'
+          <button 
+            type="button"
+            onClick={() => changeLanguage('mr')}
+            className={`px-4 py-1.5 rounded-full font-semibold text-xs transition-all duration-200 ${
+              i18n.language === 'mr' ? 'bg-[#00085a] text-white shadow-sm' : 'text-[#33334d] hover:bg-gray-100/60'
             }`}
           >
-            <MessageSquare className="h-3.5 w-3.5" />
-            <span>WhatsApp OTP</span>
+            म
+          </button>
+          <button 
+            type="button"
+            onClick={() => changeLanguage('hi')}
+            className={`px-4 py-1.5 rounded-full font-semibold text-xs transition-all duration-200 ${
+              i18n.language === 'hi' ? 'bg-[#00085a] text-white shadow-sm' : 'text-[#33334d] hover:bg-gray-100/60'
+            }`}
+          >
+            हि
           </button>
         </div>
+      </header>
 
-        {/* Standard Credentials View */}
-        {authMode === 'password' ? (
-          <form onSubmit={handleStandardSubmit} className="space-y-4">
-            <div>
-              <label className="block text-xs font-medium text-slate-350 mb-1.5">{t('common.username')}</label>
-              <div className="relative">
-                <input
-                  type="text"
-                  required
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl glass-input text-sm"
-                  placeholder="Enter username"
-                />
-                <ShieldCheck className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-500" />
-              </div>
-              <div className="text-[10px] text-slate-500 mt-1">Hint: superadmin / admin_durga</div>
+      {/* Main Content Canvas */}
+      <main className="flex-grow flex items-center justify-center px-margin-mobile md:px-margin-desktop pt-24 pb-24 relative overflow-hidden">
+        {/* Background Decoration Elements */}
+        <div className="absolute top-[-20%] left-[-10%] w-[600px] md:w-[800px] h-[600px] md:h-[800px] bg-[#e3e2ff]/50 rounded-full blur-[100px] md:blur-[130px] z-0 pointer-events-none"></div>
+        <div className="absolute bottom-[-20%] right-[-10%] w-[500px] md:w-[600px] h-[500px] md:h-[600px] bg-[#dcfce7]/60 rounded-full blur-[90px] md:blur-[110px] z-0 pointer-events-none"></div>
+
+        {/* Login Card */}
+        <div className="relative z-10 w-full max-w-[440px] bg-white rounded-[24px] shadow-[0px_10px_40px_rgba(0,0,0,0.06)] p-8 md:p-10 flex flex-col border border-[#e2e2f0]">
+          {/* Header */}
+          <div className="text-center flex flex-col items-center">
+            <div className="w-[84px] h-[84px] mb-4">
+              <img 
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQb0DvB5zO0bR00VGze-cxroJgflWWJ6PPM2yRsmjtoI9_XsXxlzROYaF5FLkTwOjlh7I75jlyuyqq_QtoftQNhkmn7c-HTcnGF2pyeV29kTy7_FLEQzh9igNKjlyBiB0yTlPyff1DgZsAqNCBd-tTZ-nrro8Zc6nM2jtmtEAWEDruoE3xDi15eQNaifaVRdhtxG68NQDDb6aeQE4yr08AOQ1YDYsksOsQ7bbSza9Npw2mVdRskSpA2gv0kSWPjdLKnlCGtYgUhSso" 
+                alt="Gatmitra Logo" 
+                className="w-full h-full object-contain"
+              />
             </div>
+            <h1 className="text-[26px] font-bold text-[#1b1b21] tracking-tight leading-tight">
+              {t('auth.welcomeToGatmitra')}
+            </h1>
+            <p className="text-[14px] text-gray-500 leading-relaxed mt-2 text-center">
+              {authMode === 'password' 
+                ? t('auth.enterDetails') 
+                : t('auth.enterMobileToAccess')}
+            </p>
+          </div>
 
-            <div>
-              <label className="block text-xs font-medium text-slate-350 mb-1.5">{t('common.password')}</label>
-              <div className="relative">
-                <input
-                  type="password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl glass-input text-sm"
-                  placeholder="Enter password"
-                />
-                <KeyRound className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-500" />
-              </div>
-              <div className="text-[10px] text-slate-500 mt-1">Hint: password123</div>
+          {/* Notices */}
+          {errorMsg && (
+            <div className="p-3 bg-error-container border border-error/25 text-error rounded-lg text-label-sm text-center mt-4">
+              {errorMsg}
             </div>
+          )}
+          {infoMsg && (
+            <div className="p-3 bg-secondary-container/20 border border-secondary-container text-on-secondary-container rounded-lg text-label-sm text-center font-medium mt-4">
+              {infoMsg}
+            </div>
+          )}
 
+          {/* Forms */}
+          {authMode === 'password' ? (
+            <form onSubmit={handleStandardSubmit} className="flex flex-col mt-6">
+              <div className="flex flex-col mb-4">
+                <label className="font-semibold text-sm text-[#1b1b21] mb-1.5 block text-left" htmlFor="username">
+                  Username
+                </label>
+                <div className="flex items-center px-4 py-3 bg-[#f8f8fd] border border-[#d2d2f2] focus-within:border-[#000666] focus-within:ring-1 focus-within:ring-[#000666]/20 rounded-lg transition-colors w-full h-[52px]">
+                  <ShieldCheck className="h-5 w-5 text-gray-400 mr-2 shrink-0" />
+                  <input
+                    type="text"
+                    id="username"
+                    required
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    className="bg-transparent border-0 outline-none focus:ring-0 focus:outline-none p-0 text-[#1b1b21] placeholder-gray-400/80 font-normal w-full text-base"
+                    placeholder="Enter username"
+                  />
+                </div>
+                <p className="text-[10px] text-gray-400 mt-1">Hint: superadmin / admin_durga</p>
+              </div>
+
+              <div className="flex flex-col mb-4">
+                <label className="font-semibold text-sm text-[#1b1b21] mb-1.5 block text-left" htmlFor="password">
+                  Password
+                </label>
+                <div className="flex items-center px-4 py-3 bg-[#f8f8fd] border border-[#d2d2f2] focus-within:border-[#000666] focus-within:ring-1 focus-within:ring-[#000666]/20 rounded-lg transition-colors w-full h-[52px]">
+                  <KeyRound className="h-5 w-5 text-gray-400 mr-2 shrink-0" />
+                  <input
+                    type="password"
+                    id="password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="bg-transparent border-0 outline-none focus:ring-0 focus:outline-none p-0 text-[#1b1b21] placeholder-gray-400/80 font-normal w-full text-base"
+                    placeholder="Enter password"
+                  />
+                </div>
+                <p className="text-[10px] text-gray-400 mt-1">Hint: password123</p>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full bg-[#00085a] hover:bg-[#00054d] disabled:opacity-50 text-white font-bold py-3.5 px-4 rounded-lg shadow-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2 h-[52px] mt-2"
+              >
+                {isLoading ? (
+                  <span className="text-sm">{t('common.loading')}</span>
+                ) : (
+                  <>
+                    <span>Sign In</span>
+                    <ArrowRight className="h-5 w-5" />
+                  </>
+                )}
+              </button>
+            </form>
+          ) : (
+            <div>
+              {!otpRequested ? (
+                <form onSubmit={handleRequestOtp} className="flex flex-col mt-6">
+                  <div className="flex flex-col">
+                    <label className="font-semibold text-sm text-[#1b1b21] mb-1.5 block text-left" htmlFor="mobile-number">
+                      {t('auth.mobileNumber')}
+                    </label>
+                    <div className="flex items-center px-4 py-3 bg-[#f8f8fd] border border-[#d2d2f2] focus-within:border-[#000666] focus-within:ring-1 focus-within:ring-[#000666]/20 rounded-lg transition-colors w-full h-[52px]">
+                      <span className="text-[#1b1b21] font-semibold mr-2">+91</span>
+                      <input
+                        type="tel"
+                        id="mobile-number"
+                        required
+                        pattern="[0-9]{10}"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        className="bg-transparent border-0 outline-none focus:ring-0 focus:outline-none p-0 text-[#1b1b21] placeholder-gray-400/80 font-normal w-full text-base"
+                        placeholder={t('auth.tenDigitMobileNumber')}
+                      />
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-full bg-[#00085a] hover:bg-[#00054d] disabled:opacity-50 text-white font-bold py-3.5 px-4 rounded-lg shadow-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2 h-[52px] mt-6"
+                  >
+                    {isLoading ? (
+                      <span className="text-sm">{t('common.loading')}</span>
+                    ) : (
+                      <>
+                        <span>{t('auth.sendOtp')}</span>
+                        <ArrowRight className="h-5 w-5" />
+                      </>
+                    )}
+                  </button>
+                </form>
+              ) : (
+                <form onSubmit={handleVerifyOtp} className="flex flex-col mt-6">
+                  <div className="flex flex-col gap-xs">
+                    <label className="font-semibold text-sm text-[#1b1b21] mb-1.5 block text-left" htmlFor="otp-code">
+                      Verification Code
+                    </label>
+                    <div className="flex items-center px-4 py-3 bg-[#f8f8fd] border border-[#d2d2f2] focus-within:border-[#000666] focus-within:ring-1 focus-within:ring-[#000666]/20 rounded-lg transition-colors w-full h-[52px]">
+                      <ShieldCheck className="h-5 w-5 text-gray-400 mr-2 shrink-0" />
+                      <input
+                        type="text"
+                        id="otp-code"
+                        required
+                        maxLength={6}
+                        value={otpCode}
+                        onChange={(e) => setOtpCode(e.target.value)}
+                        className="bg-transparent border-0 outline-none focus:ring-0 focus:outline-none p-0 text-[#1b1b21] placeholder-gray-400/80 font-normal w-full text-base text-center tracking-widest"
+                        placeholder={t('auth.otpPlaceholder')}
+                      />
+                    </div>
+                    <p className="text-[10px] text-gray-400 mt-1 text-center">
+                      Check PostgreSQL `notification_logs` to get your generated code.
+                    </p>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-full bg-[#00085a] hover:bg-[#00054d] disabled:opacity-50 text-white font-bold py-3.5 px-4 rounded-lg shadow-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2 h-[52px] mt-6"
+                  >
+                    {isLoading ? (
+                      <span className="text-sm">{t('common.loading')}</span>
+                    ) : (
+                      <>
+                        <span>{t('auth.verifyOtp')}</span>
+                        <ArrowRight className="h-5 w-5" />
+                      </>
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => { setOtpRequested(false); setOtpCode(''); }}
+                    className="mt-4 text-center text-xs text-gray-500 hover:text-[#00085a] transition font-semibold"
+                  >
+                    Change phone number
+                  </button>
+                </form>
+              )}
+            </div>
+          )}
+
+          {/* Trust Badge */}
+          <div className="mt-6 flex items-center justify-center gap-2 bg-[#e8f7ec] border border-[#cbeecf] py-2.5 px-4 rounded-lg">
+            <Lock className="h-4 w-4 text-[#1b6d24] shrink-0" />
+            <span className="text-[13px] font-semibold text-[#1b6d24]">
+              {t('auth.bankEncryption')}
+            </span>
+          </div>
+
+          {/* Terms / Privacy Links */}
+          <div className="text-center border-t border-gray-100 pt-6 mt-6 flex flex-col gap-3 items-center">
+            <p className="text-[13px] text-gray-500 leading-normal font-normal">
+              {t('auth.termsPrefix')}
+              <a className="text-[#1b1b21] hover:underline font-semibold" href="#">{t('auth.termsOfService')}</a>
+              {t('auth.termsAnd')}
+              <a className="text-[#1b1b21] hover:underline font-semibold" href="#">{t('auth.privacyPolicy')}</a>
+              {t('auth.termsSuffix')}
+            </p>
             <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full py-3 rounded-xl btn-primary-gradient text-sm font-bold text-white mt-6 disabled:opacity-50"
+              type="button"
+              onClick={() => {
+                setAuthMode(authMode === 'otp' ? 'password' : 'otp');
+                setErrorMsg('');
+                setInfoMsg('');
+              }}
+              className="text-xs text-[#00085a] hover:underline font-bold mt-1"
             >
-              {isLoading ? t('common.loading') : 'Sign In'}
+              {authMode === 'otp' ? 'Login with Username/Password' : 'Login with Mobile Number'}
             </button>
-          </form>
-        ) : (
-          /* WhatsApp OTP Request / Validation View */
-          <div>
-            {!otpRequested ? (
-              <form onSubmit={handleRequestOtp} className="space-y-4">
-                <div>
-                  <label className="block text-xs font-medium text-slate-350 mb-1.5">{t('common.phone')}</label>
-                  <div className="relative">
-                    <input
-                      type="tel"
-                      required
-                      value={phoneNumber}
-                      onChange={(e) => setPhoneNumber(e.target.value)}
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl glass-input text-sm"
-                      placeholder="e.g. +919876543210"
-                    />
-                    <Phone className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-500" />
-                  </div>
-                  <div className="text-[10px] text-slate-500 mt-1">Registered formats: +919876543210</div>
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full py-3 rounded-xl btn-primary-gradient text-sm font-bold text-white mt-6 disabled:opacity-50"
-                >
-                  {isLoading ? t('common.loading') : t('auth.requestOtp')}
-                </button>
-              </form>
-            ) : (
-              <form onSubmit={handleVerifyOtp} className="space-y-4">
-                <div>
-                  <label className="block text-xs font-medium text-slate-350 mb-1.5">Verification Code</label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      required
-                      maxLength={6}
-                      value={otpCode}
-                      onChange={(e) => setOtpCode(e.target.value)}
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl glass-input text-sm text-center tracking-widest text-lg"
-                      placeholder={t('auth.otpPlaceholder')}
-                    />
-                    <ShieldCheck className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-500" />
-                  </div>
-                  <div className="text-[10px] text-slate-500 mt-1.5 text-center">
-                    Check PostgreSQL `notification_logs` to get your generated code.
-                  </div>
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full py-3 rounded-xl btn-primary-gradient text-sm font-bold text-white mt-6 disabled:opacity-50"
-                >
-                  {isLoading ? t('common.loading') : t('auth.verifyOtp')}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => { setOtpRequested(false); setOtpCode(''); }}
-                  className="w-full text-center text-xs text-slate-400 hover:text-slate-200 mt-2 transition"
-                >
-                  Change phone number
-                </button>
-              </form>
-            )}
           </div>
-        )}
-      </div>
+        </div>
+      </main>
     </div>
   );
 };

@@ -11,9 +11,9 @@ spring:
   
   # Database configuration
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5420/gatmitra}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/bachatgat_db}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:NewPassword@123}
     driver-class-name: org.postgresql.Driver
   
   # JPA Hibernate Config
@@ -42,11 +42,4 @@ gatmitra:
     otp:
       expiration-minutes: 5
 
-# API Document configuration
-springdoc:
-  api-docs:
-    path: /api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-    operations-sorter: method
-    tags-sorter: alpha
+

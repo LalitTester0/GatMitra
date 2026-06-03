@@ -21,7 +21,8 @@
     "phone": "Phone Number",
     "username": "Username",
     "password": "Password",
-    "search": "Search..."
+    "search": "Search...",
+    "savings": "Savings"
   },
   "auth": {
     "login": "Login to GatMitra",
@@ -32,7 +33,18 @@
     "loginSuccess": "Logged in successfully!",
     "otpSent": "OTP has been sent to your WhatsApp!",
     "useStandard": "Use standard credentials",
-    "useOtp": "Use WhatsApp OTP login"
+    "useOtp": "Use WhatsApp OTP login",
+    "welcomeToGatmitra": "Welcome to Gatmitra",
+    "enterMobileToAccess": "Enter your mobile number to securely access your group or join a new one.",
+    "mobileNumber": "Mobile Number",
+    "tenDigitMobileNumber": "10-digit mobile number",
+    "sendOtp": "Send OTP",
+    "bankEncryption": "256-bit Bank Grade Encryption",
+    "termsPrefix": "By continuing, you agree to our ",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "termsAnd": " and ",
+    "termsSuffix": "."
   },
   "dashboard": {
     "title": "GatMitra Executive Dashboard",
@@ -61,5 +73,23 @@
     "firstName": "First Name",
     "lastName": "Last Name",
     "group": "Associated Bachat Gat"
+  },
+  "superadmin": {
+    "title": "System Command Center",
+    "desc": "Monitoring enterprise-wide Gatmitra performance and security metrics.",
+    "exportReport": "Export Report",
+    "systemHealthCheck": "System Health Check",
+    "totalActiveGroups": "Total Active Groups",
+    "totalDeposits": "Total Deposits",
+    "pendingApprovals": "Pending Approvals",
+    "systemHealth": "System Health",
+    "highPriorityActions": "High-Priority Actions",
+    "viewAll": "View All",
+    "networkGrowth": "Network Growth & Financial Overview",
+    "systemEvents": "System-wide Events",
+    "recentRegistrations": "Recent Registrations",
+    "manageEntities": "Manage Entities",
+    "profileDetails": "Profile Details",
+    "logout": "Log out"
   }
 }

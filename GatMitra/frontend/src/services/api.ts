@@ -38,6 +38,7 @@ export interface MemberData {
   phoneNumber: string;
   joinDate?: string;
   status?: string;
+  gender?: string;
 }
 
 export interface DashboardStats {
@@ -66,8 +67,8 @@ export interface AuditLog {
 // API methods
 export const authApi = {
   login: (credentials: any) => api.post('/auth/login', credentials),
-  requestOtp: (phone: string) => api.post('/auth/otp/request', { phoneNumber: phone }),
-  verifyOtp: (phone: string, code: string) => api.post('/auth/otp/verify', { phoneNumber: phone, code })
+  requestOtp: (phone: string) => api.post('/auth/send-otp', { mobileNumber: phone }),
+  verifyOtp: (phone: string, code: string) => api.post('/auth/verify-otp', { mobileNumber: phone, otp: code })
 };
 
 export const dashboardApi = {

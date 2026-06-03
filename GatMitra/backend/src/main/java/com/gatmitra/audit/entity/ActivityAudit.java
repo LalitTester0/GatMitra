@@ -22,20 +22,21 @@ public class ActivityAudit {
     @Column(name = "user_id")
     private UUID userId;
 
-    private String username;
+    @Column(name = "module_name", length = 100)
+    private String moduleName;
 
-    @Column(nullable = false)
-    private String action; // CREATE, UPDATE, DELETE, VIEW
+    @Column(name = "activity_type", length = 100)
+    private String activityType;
 
-    @Column(name = "entity_name")
-    private String entityName;
+    @Column(name = "previous_value", columnDefinition = "TEXT")
+    private String previousValue;
 
-    @Column(name = "entity_id")
-    private String entityId;
+    @Column(name = "new_value", columnDefinition = "TEXT")
+    private String newValue;
 
-    @Column(nullable = false)
-    private LocalDateTime timestamp = LocalDateTime.now();
+    @Column(name = "ip_address", length = 100)
+    private String ipAddress;
 
-    @Column(length = 1000)
-    private String details;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt = LocalDateTime.now();
 }
